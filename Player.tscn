@@ -7,7 +7,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w2sw6"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_yptwg")
 
 [node name="HealthC" parent="." instance=ExtResource("2_ehegl")]
@@ -21,5 +21,18 @@ mesh = ExtResource("3_x5o46")
 
 [node name="MovementC" parent="." node_paths=PackedStringArray("body_to_move") instance=ExtResource("4_h7q3g")]
 body_to_move = NodePath("..")
+base_acceleration = 6
+max_speed = 6.0
+
+[node name="velocity" type="RayCast3D" parent="."]
+top_level = true
+debug_shape_custom_color = Color(0, 0, 1, 1)
+debug_shape_thickness = 4
+
+[node name="accel" type="RayCast3D" parent="."]
+top_level = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 1
 
 [connection signal="death" from="HealthC" to="." method="death"]
+[connection signal="movement_data" from="MovementC" to="." method="_set_velocity"]
