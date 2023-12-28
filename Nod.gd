@@ -1,16 +1,13 @@
 extends CharacterBody3D
 #im chosing the keep the player scene and script not in a folder because we will acess it a lot 
-#ima create a state machine for the player, simmilar system to the enimies, they will call the movement_c.gd to control movement based on their special state machine
 
-var fullscreen := false
-var speed := 12
-var rot_want 
+var fullscreen := false 
 
 @onready var movementC = $MovementC
-var camera : Camera3D
+@onready var camera = get_tree().get_nodes_in_group("camera")[0]
 
 func _ready():
-	camera = get_tree().get_nodes_in_group("camera")[0]
+	pass
 func _process(delta):
 #region basic debug tool
 	if Input.is_action_just_pressed("exit"):
@@ -24,6 +21,7 @@ func _process(delta):
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	if Input.is_action_just_pressed('restart'):
 		get_tree().reload_current_scene()
+	#print(Engine.get_frames_per_second())
 	
 #endregion
 	
@@ -38,19 +36,18 @@ func _process(delta):
 	if !intent:
 		movementC.cur_state = movementC.STATES.IDLE
 	
+#region debug devices
 	$velocity.position = position
 	$accel.position = position
 	$velocity.target_position = velocity
 	$accel.target_position = movementC.global_transform.basis.z * delta * movementC.base_acceleration * 50
+#endregion
 	
 #endregion
 	
-	#move_and_slide() #might have to find the difference between the movement_c.gd's velocity and this one, subtract them and add it to this velocity so that the characterbody3d move and slide can act accordenliy rather than setting. 
-
-
+	#print(velocity.dot(global_transform.basis.z))
 func death():
 	queue_free()
 
 func _set_velocity(v, r):
 	velocity = v
-	rot_want = r
