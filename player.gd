@@ -36,11 +36,12 @@ func _process(delta):
 	if !intent:
 		movementC.cur_state = movementC.STATES.IDLE
 	
+	
 #region debug devices
-	$velocity.position = position
-	$accel.position = position
-	$velocity.target_position = velocity
-	$accel.target_position = movementC.global_transform.basis.z * delta * movementC.base_acceleration * 50
+	$"Debug tools/velocity".position = position
+	$"Debug tools/accel".position = position
+	$"Debug tools/velocity".target_position = velocity
+	$"Debug tools/accel".target_position = movementC.global_transform.basis.z * delta * movementC.base_acceleration * 50
 #endregion
 	
 #endregion

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c456vx5ay5bgw"]
 
-[ext_resource type="PackedScene" uid="uid://dun500en0bm06" path="res://Nod.tscn" id="1_iwwwd"]
+[ext_resource type="PackedScene" uid="uid://han2gkcqd0dl" path="res://Nod.tscn" id="1_iwwwd"]
 [ext_resource type="PackedScene" uid="uid://buddhcu3qos45" path="res://character_components/camera_3d.tscn" id="2_8bj42"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f33gb"]
@@ -16,9 +16,6 @@ background_energy_multiplier = 1.32
 sky = SubResource("Sky_04y8a")
 
 [node name="Scene1" type="Node3D"]
-
-[node name="Player" parent="." instance=ExtResource("1_iwwwd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.34984, 5.46731, 0.120203)
 
 [node name="Camera3D" parent="." instance=ExtResource("2_8bj42")]
 transform = Transform3D(1, 0, 0, 0, 0.937889, 0.346936, 0, -0.346936, 0.937889, 0, 3.783, 10.904)
@@ -40,3 +37,6 @@ text = "1 meter tall box!"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Enviornment"]
 environment = SubResource("Environment_ymmp1")
+
+[node name="Nod" parent="." instance=ExtResource("1_iwwwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54023, 1.95878, 0)

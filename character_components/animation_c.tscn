@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6ih1s4k7p4r4"]
+[gd_scene load_steps=2 format=3 uid="uid://bnwvk1wbkgsgm"]
 
 [ext_resource type="Script" path="res://character_components/animation_c.gd" id="1_c6rkb"]
 

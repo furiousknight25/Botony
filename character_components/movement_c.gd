@@ -22,8 +22,8 @@ func _ready():
 	camera = get_tree().get_nodes_in_group("camera")[0]
 
 func _process(delta):
-	animation_c.set('parameters/Blend2/blend_amount', velocity.length()/max_speed) #delete this when you make system
-	print(velocity.length()/max_speed) 
+	#animation_c.set('parameters/Blend2/blend_amount', velocity.length()/max_speed) #delete this when you make system
+	#print(velocity.length()/max_speed) 
 	
 	
 	emit_signal('movement_data', velocity, rot)
@@ -57,8 +57,8 @@ func active_process(delta):
 		var drift_factor = body_to_move.velocity.dot(body_to_move.basis.x)
 		var drift_force = (body_to_move.basis.x * drift_factor)
 		velocity -= drift_force
-		var current_max_speed = max(0, (max_speed - (abs(drift_factor * 10))))
-		velocity = velocity.limit_length(current_max_speed)
+		#var current_max_speed = max(0, (max_speed - (abs(drift_factor * 10))))
+		velocity = velocity.limit_length(max_speed)
 		
 func gap_process(delta):
 	pass

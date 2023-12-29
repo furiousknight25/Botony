@@ -1,10 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://dun500en0bm06"]
+[gd_scene load_steps=44 format=3 uid="uid://han2gkcqd0dl"]
 
-[ext_resource type="Script" path="res://Nod.gd" id="1_yptwg"]
+[ext_resource type="Script" path="res://player.gd" id="1_yptwg"]
 [ext_resource type="PackedScene" uid="uid://bo2tom0jppviq" path="res://character_components/health_c.tscn" id="2_ehegl"]
 [ext_resource type="PackedScene" uid="uid://cu10oq4yspjce" path="res://character_components/movement_c.tscn" id="4_h7q3g"]
 [ext_resource type="Animation" uid="uid://bc72ff8qp3fmi" path="res://raw_assets/meshes/test_meshes/test_animations/breay run.res" id="5_lougo"]
-[ext_resource type="PackedScene" uid="uid://c6ih1s4k7p4r4" path="res://character_components/animation_c.tscn" id="5_syjga"]
+[ext_resource type="PackedScene" uid="uid://bnwvk1wbkgsgm" path="res://character_components/animation_c.tscn" id="5_syjga"]
 [ext_resource type="Animation" uid="uid://oetvm6fg6dj1" path="res://raw_assets/meshes/test_meshes/test_animations/breycover 2.res" id="6_hni48"]
 [ext_resource type="Animation" uid="uid://bmf2gewd3l1jx" path="res://raw_assets/meshes/test_meshes/test_animations/breyparkour .res" id="7_42a8r"]
 [ext_resource type="Animation" uid="uid://dsi54epnvlpqc" path="res://raw_assets/meshes/test_meshes/test_animations/breyparkour 2.res" id="8_tkg8d"]
@@ -23,8 +23,16 @@
 [ext_resource type="Animation" uid="uid://daq3rhoga1o7f" path="res://raw_assets/meshes/test_meshes/test_animations/shuffle2.res" id="21_msqt0"]
 [ext_resource type="Animation" uid="uid://wdjxd25iw363" path="res://raw_assets/meshes/test_meshes/test_animations/shuffle3.res" id="22_jecom"]
 [ext_resource type="Animation" uid="uid://bn2krie2jtbgu" path="res://raw_assets/meshes/test_meshes/test_animations/walk.res" id="23_cnj5l"]
+[ext_resource type="ArrayMesh" uid="uid://cdcugyctgcy3l" path="res://raw_assets/meshes/test_meshes/nod.tres" id="24_avaqp"]
+[ext_resource type="PackedScene" uid="uid://ctvj7tai32mf8" path="res://character_components/aim_c.tscn" id="25_sw77u"]
+[ext_resource type="Script" path="res://etc_scripts/MousePosition.gd" id="26_3fycl"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w2sw6"]
+[sub_resource type="PrismMesh" id="PrismMesh_8op0a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rvsc"]
+albedo_color = Color(1, 0, 0.964706, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8cgaf"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1k58a"]
 _data = {
@@ -50,21 +58,28 @@ _data = {
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gqxyc"]
-animation = &"nod running"
+animation = &"parkour4"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4f6uu"]
 animation = &"idle"
 
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_jpqu0"]
+
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_orp7e"]
 
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_mh2px"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xwpeg"]
-graph_offset = Vector2(-622.223, 47.5735)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_4f6uu")
-nodes/Animation/position = Vector2(-380, 120)
+nodes/Animation/position = Vector2(-880, 120)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_gqxyc")
-"nodes/Animation 2/position" = Vector2(-380, 280)
+"nodes/Animation 2/position" = Vector2(-220, 340)
+"nodes/Blend top part/node" = SubResource("AnimationNodeBlendSpace2D_jpqu0")
+"nodes/Blend top part/position" = Vector2(-1100, 80)
 nodes/Blend2/node = SubResource("AnimationNodeBlend2_orp7e")
-nodes/Blend2/position = Vector2(-80, 180)
+nodes/Blend2/position = Vector2(-40, 80)
+nodes/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_mh2px")
+nodes/BlendSpace2D/position = Vector2(-420, 280)
 node_connections = [&"Blend2", 0, &"Animation", &"Blend2", 1, &"Animation 2", &"output", 0, &"Blend2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pcah1"]
@@ -163,43 +178,50 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_gshxp")
 
+[sub_resource type="SphereMesh" id="SphereMesh_h1y4p"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w2sw6"]
+
 [node name="Nod" type="CharacterBody3D"]
 script = ExtResource("1_yptwg")
 
 [node name="HealthC" parent="." instance=ExtResource("2_ehegl")]
 
-[node name="PlayerCollisionTest" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_w2sw6")
-
 [node name="MovementC" parent="." node_paths=PackedStringArray("body_to_move", "animation_c") instance=ExtResource("4_h7q3g")]
 body_to_move = NodePath("..")
 animation_c = NodePath("../AnimationC")
-friction = 30
+friction = 20
 
-[node name="AnimationC" parent="." node_paths=PackedStringArray("skeleton") instance=ExtResource("5_syjga")]
+[node name="AimC" parent="." node_paths=PackedStringArray("body_to_rotate", "body") instance=ExtResource("25_sw77u")]
+body_to_rotate = NodePath("Chest")
+body = NodePath("..")
+
+[node name="Chest" type="MeshInstance3D" parent="AimC"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00317526, 0.506506, 0.00634813)
+top_level = true
+mesh = SubResource("PrismMesh_8op0a")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AimC/Chest"]
+transform = Transform3D(0.251402, 0, 0, 0, -2.16657e-08, 0.250208, 0, -0.495654, -1.09369e-08, -0.00317526, 0.47056, -0.0114481)
+material_override = SubResource("StandardMaterial3D_7rvsc")
+mesh = SubResource("CylinderMesh_8cgaf")
+skeleton = NodePath("../../..")
+
+[node name="AnimationC" parent="." instance=ExtResource("5_syjga")]
 root_node = NodePath("../jump_nod_2_")
 libraries = {
 "": SubResource("AnimationLibrary_1k58a")
 }
 tree_root = SubResource("AnimationNodeBlendTree_xwpeg")
 anim_player = NodePath("../jump_nod_2_/AnimationPlayer")
-parameters/Blend2/blend_amount = 0.0
-skeleton = NodePath("../jump_nod_2_/Armature_001/Skeleton3D")
-
-[node name="velocity" type="RayCast3D" parent="."]
-top_level = true
-enabled = false
-debug_shape_custom_color = Color(0, 0, 1, 1)
-debug_shape_thickness = 4
-
-[node name="accel" type="RayCast3D" parent="."]
-top_level = true
-enabled = false
-debug_shape_custom_color = Color(1, 0, 0, 1)
-debug_shape_thickness = 1
+"parameters/Blend top part/blend_position" = Vector2(0, 0)
+parameters/Blend2/blend_amount = null
+parameters/BlendSpace2D/blend_position = Vector2(0.0112, 0.026455)
 
 [node name="jump_nod_2_" type="Node3D" parent="."]
 transform = Transform3D(0.674063, 0, 0, 0, 0.674063, 0, 0, 0, 0.674063, 0, 0, 0)
+visible = false
 
 [node name="Armature_001" type="Node3D" parent="jump_nod_2_"]
 
@@ -208,15 +230,15 @@ bones/0/name = "Bone"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, -7.10543e-15, 2.38419e-07, -7.10543e-15, 1, 5.96046e-08, -2.38419e-07, -5.96046e-08, 1, 0, 0, 0)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -0.00059742, 0.00176246)
-bones/0/rotation = Quaternion(0.0100726, 1.19221e-07, 6.07802e-10, 0.999949)
+bones/0/position = Vector3(0, 0, 0.00176246)
+bones/0/rotation = Quaternion(0.00758595, 1.19206e-07, 9.04319e-10, 0.999971)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Bone.001"
 bones/1/parent = 0
 bones/1/rest = Transform3D(-1.19209e-07, 1, -1.37425e-07, -1, -1.19209e-07, -4.51836e-07, -4.51836e-07, 1.37425e-07, 1, -2.10694e-07, -0.124657, 0.883713)
 bones/1/enabled = true
-bones/1/position = Vector3(-2.07392e-07, -0.126416, 0.883754)
-bones/1/rotation = Quaternion(0.00013296, -0.000132588, -0.712778, 0.70139)
+bones/1/position = Vector3(-2.0718e-07, -0.124682, 0.883713)
+bones/1/rotation = Quaternion(5.50357e-05, -5.48127e-05, -0.709818, 0.704385)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Cylinder"
 bones/2/parent = 0
@@ -227,7 +249,7 @@ bones/2/rotation = Quaternion(3.81551e-08, -1.20024e-07, 4.65661e-10, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Cylinder" type="BoneAttachment3D" parent="jump_nod_2_/Armature_001/Skeleton3D"]
-transform = Transform3D(1, 2.54871e-10, -1.60603e-09, -2.87171e-10, 0.999797, -0.0201442, 1.60057e-09, 0.0201442, 0.999797, 1.77985e-09, -0.000597557, 0.00176258)
+transform = Transform3D(1, -9.3132e-10, -1.62949e-09, 9.06491e-10, 0.999885, -0.0151715, 1.64341e-09, 0.0151715, 0.999885, 1.77985e-09, -1.35882e-07, 0.00176258)
 bone_name = "Cylinder"
 bone_idx = 2
 
@@ -239,6 +261,33 @@ skeleton = NodePath("")
 libraries = {
 "": SubResource("AnimationLibrary_1k58a")
 }
+
+[node name="Debug tools" type="Node3D" parent="."]
+
+[node name="velocity" type="RayCast3D" parent="Debug tools"]
+top_level = true
+enabled = false
+debug_shape_custom_color = Color(0, 0, 1, 1)
+debug_shape_thickness = 4
+
+[node name="accel" type="RayCast3D" parent="Debug tools"]
+top_level = true
+enabled = false
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 1
+
+[node name="body" type="MeshInstance3D" parent="Debug tools"]
+transform = Transform3D(0.701009, 0, 0, 0, 0.348765, 0, 0, 0, 0.701009, 0, -0.493553, 0)
+mesh = ExtResource("24_avaqp")
+
+[node name="MousePosition" type="MeshInstance3D" parent="Debug tools"]
+top_level = true
+visible = false
+mesh = SubResource("SphereMesh_h1y4p")
+script = ExtResource("26_3fycl")
+
+[node name="PlayerCollisionTest" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_w2sw6")
 
 [connection signal="death" from="HealthC" to="." method="death"]
 [connection signal="movement_data" from="MovementC" to="." method="_set_velocity"]
