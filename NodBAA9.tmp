@@ -1,8 +1,9 @@
-[gd_scene load_steps=45 format=3 uid="uid://han2gkcqd0dl"]
+[gd_scene load_steps=44 format=3 uid="uid://han2gkcqd0dl"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_yptwg"]
 [ext_resource type="PackedScene" uid="uid://bo2tom0jppviq" path="res://character_components/health_c.tscn" id="2_ehegl"]
 [ext_resource type="PackedScene" uid="uid://cu10oq4yspjce" path="res://character_components/movement_c.tscn" id="4_h7q3g"]
+[ext_resource type="PackedScene" uid="uid://bt51erwfn7sw6" path="res://character_components/cursors/basic.tscn" id="5_0h4p4"]
 [ext_resource type="Animation" uid="uid://bc72ff8qp3fmi" path="res://raw_assets/meshes/test_meshes/test_animations/breay run.res" id="5_lougo"]
 [ext_resource type="PackedScene" uid="uid://bnwvk1wbkgsgm" path="res://character_components/animation_c.tscn" id="5_syjga"]
 [ext_resource type="Animation" uid="uid://oetvm6fg6dj1" path="res://raw_assets/meshes/test_meshes/test_animations/breycover 2.res" id="6_hni48"]
@@ -24,8 +25,9 @@
 [ext_resource type="Animation" uid="uid://wdjxd25iw363" path="res://raw_assets/meshes/test_meshes/test_animations/shuffle3.res" id="22_jecom"]
 [ext_resource type="Animation" uid="uid://bn2krie2jtbgu" path="res://raw_assets/meshes/test_meshes/test_animations/walk.res" id="23_cnj5l"]
 [ext_resource type="ArrayMesh" uid="uid://cdcugyctgcy3l" path="res://raw_assets/meshes/test_meshes/nod.tres" id="24_avaqp"]
+[ext_resource type="PackedScene" uid="uid://dkwvq36todudh" path="res://character_components/gun_c.tscn" id="25_71ias"]
+[ext_resource type="ArrayMesh" uid="uid://b36chjx2jwfak" path="res://raw_assets/meshes/test_meshes/testgun.tres" id="25_kndka"]
 [ext_resource type="PackedScene" uid="uid://ctvj7tai32mf8" path="res://character_components/aim_c.tscn" id="25_sw77u"]
-[ext_resource type="PackedScene" uid="uid://bqn8p2tjg2lvt" path="res://character_tools/weapons/test_gun.tscn" id="25_yqyfh"]
 [ext_resource type="Script" path="res://etc_scripts/MousePosition.gd" id="26_3fycl"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1k58a"]
@@ -174,15 +176,6 @@ shadow_mesh = SubResource("ArrayMesh_gshxp")
 
 [sub_resource type="SphereMesh" id="SphereMesh_h1y4p"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_affcc"]
-transparency = 1
-albedo_color = Color(0.278431, 1, 1, 0.129412)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ofo2p"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_pkmis"]
-size = Vector3(442.27, 0.231934, 257.219)
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w2sw6"]
 
 [node name="Nod" type="CharacterBody3D"]
@@ -193,15 +186,13 @@ script = ExtResource("1_yptwg")
 [node name="MovementC" parent="." node_paths=PackedStringArray("body_to_move", "animation_c") instance=ExtResource("4_h7q3g")]
 body_to_move = NodePath("..")
 animation_c = NodePath("../AnimationC")
-max_speed_sprint = 9
 friction = 20
-aim_subtract = 4
+aim_subtract = 3
 
-[node name="AimC" parent="." node_paths=PackedStringArray("body_to_rotate", "body", "movementC", "gunC") instance=ExtResource("25_sw77u")]
+[node name="AimC" parent="." node_paths=PackedStringArray("body_to_rotate", "body", "movementC") instance=ExtResource("25_sw77u")]
 body_to_rotate = NodePath("../jump_nod_2_")
 body = NodePath("..")
 movementC = NodePath("../MovementC")
-gunC = NodePath("../jump_nod_2_/Armature_001/Skeleton3D/Hand/GunC")
 
 [node name="AnimationC" parent="." instance=ExtResource("5_syjga")]
 root_node = NodePath("../jump_nod_2_")
@@ -225,15 +216,15 @@ bones/0/name = "Bone"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, -7.10543e-15, 2.38419e-07, -7.10543e-15, 1, 5.96046e-08, -2.38419e-07, -5.96046e-08, 1, 0, 0, 0)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -0.000634311, 0.00176246)
-bones/0/rotation = Quaternion(0.00568857, 1.19207e-07, 1.13051e-09, 0.999984)
+bones/0/position = Vector3(0, -0.0151732, 0.00176246)
+bones/0/rotation = Quaternion(0.0163243, 1.19211e-07, -1.37459e-10, 0.999867)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Bone.001"
 bones/1/parent = 0
 bones/1/rest = Transform3D(-1.19209e-07, 1, -1.37425e-07, -1, -1.19209e-07, -4.51836e-07, -4.51836e-07, 1.37425e-07, 1, -2.10694e-07, -0.124657, 0.883713)
 bones/1/enabled = true
-bones/1/position = Vector3(-2.08484e-07, -0.125164, 0.883725)
-bones/1/rotation = Quaternion(1.2898e-05, -1.26365e-05, -0.707842, 0.706371)
+bones/1/position = Vector3(-2.10557e-07, -0.152267, 0.884359)
+bones/1/rotation = Quaternion(0.000371291, -0.000370215, -0.718811, 0.695205)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Cylinder"
 bones/2/parent = 0
@@ -244,7 +235,7 @@ bones/2/rotation = Quaternion(3.81551e-08, -1.20024e-07, 4.65661e-10, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Cylinder" type="BoneAttachment3D" parent="jump_nod_2_/Armature_001/Skeleton3D"]
-transform = Transform3D(1, -1.83605e-09, -1.62427e-09, 1.81746e-09, 0.999935, -0.011377, 1.64506e-09, 0.011377, 0.999935, 1.77985e-09, -0.000634447, 0.00176258)
+transform = Transform3D(1, 3.23564e-09, -1.6621e-09, -3.28817e-09, 0.999467, -0.0326443, 1.55556e-09, 0.0326443, 0.999467, 1.77985e-09, -0.0151733, 0.00176258)
 bone_name = "Cylinder"
 bone_idx = 2
 
@@ -254,16 +245,25 @@ mesh = SubResource("ArrayMesh_ipkb8")
 skeleton = NodePath("")
 
 [node name="Hand" type="BoneAttachment3D" parent="jump_nod_2_/Armature_001/Skeleton3D"]
-transform = Transform3D(-0.00208115, 0.999998, -3.58732e-05, -0.999933, -0.00208143, -0.0113773, -0.0113773, 1.21929e-05, 0.999935, 2.32987e-09, -0.135845, 0.884006)
+transform = Transform3D(-0.0333798, 0.999442, -0.00104829, -0.998909, -0.0333962, -0.0326282, -0.032645, -4.19781e-05, 0.999467, -3.72651e-10, -0.196228, 0.880679)
 bone_name = "Bone.001"
 bone_idx = 1
 
-[node name="GunC" parent="jump_nod_2_/Armature_001/Skeleton3D/Hand" instance=ExtResource("25_yqyfh")]
-transform = Transform3D(-0.102226, -0.994308, -0.0300447, 0.994212, -0.101119, -0.0363049, 0.0330601, -0.0335821, 0.998889, -0.324367, 0.388585, -0.0899697)
+[node name="GunC" parent="jump_nod_2_/Armature_001/Skeleton3D/Hand" node_paths=PackedStringArray("cursor") instance=ExtResource("25_71ias")]
+transform = Transform3D(0.999163, -0.0303748, 0.027408, 0.0305299, 0.99952, -0.0052575, -0.0272351, 0.00608987, 0.99961, -0.114346, 0.393933, -0.315443)
 fire_speed = 0.1
+cursor = NodePath("Basic")
 
 [node name="bullet_spawn" parent="jump_nod_2_/Armature_001/Skeleton3D/Hand/GunC" index="0"]
-transform = Transform3D(-0.99945, 0.0331552, -8.73461e-08, 0.0331261, 0.998573, 0.0418756, 0.00138848, 0.0418526, -0.999123, -0.0884705, 0.428106, 1.9105)
+transform = Transform3D(-1, 2.15077e-08, -5.58794e-08, -6.54836e-09, 1, 1.86265e-09, 8.19564e-08, -2.32831e-09, -1, -0.287646, 0.0231909, 2.03615)
+
+[node name="gun_mesh" parent="jump_nod_2_/Armature_001/Skeleton3D/Hand/GunC" index="1"]
+transform = Transform3D(-0.0564352, -0.996855, -0.055619, 0.997709, -0.058389, 0.0341514, -0.0372915, -0.0535643, 0.997867, -0.0973697, -0.00861737, -0.0053519)
+mesh = ExtResource("25_kndka")
+
+[node name="Basic" parent="jump_nod_2_/Armature_001/Skeleton3D/Hand/GunC" instance=ExtResource("5_0h4p4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.04349)
+top_level = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="jump_nod_2_"]
 libraries = {
@@ -286,7 +286,7 @@ debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 1
 
 [node name="body" type="MeshInstance3D" parent="Debug tools"]
-transform = Transform3D(1.04173, 0, 0, 0, 0.348765, 0, 0, 0, 1.12082, 0, -0.493553, 0)
+transform = Transform3D(0.701009, 0, 0, 0, 0.348765, 0, 0, 0, 0.701009, 0, -0.493553, 0)
 mesh = ExtResource("24_avaqp")
 
 [node name="MousePosition" type="MeshInstance3D" parent="Debug tools"]
@@ -294,28 +294,6 @@ top_level = true
 visible = false
 mesh = SubResource("SphereMesh_h1y4p")
 script = ExtResource("26_3fycl")
-
-[node name="Area3D" type="StaticBody3D" parent="Debug tools"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.374876, 0)
-collision_layer = 1024
-collision_mask = 0
-
-[node name="invisblefloor" type="MeshInstance3D" parent="Debug tools/Area3D"]
-transform = Transform3D(222.8, 0, 0, 0, 1, 0, 0, 0, 130.5, 0, -0.511453, 0)
-material_override = SubResource("StandardMaterial3D_affcc")
-mesh = SubResource("PlaneMesh_ofo2p")
-skeleton = NodePath("../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Debug tools/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.670685, -0.298729, -0.879425)
-shape = SubResource("BoxShape3D_pkmis")
-
-[node name="debugtext" type="RichTextLabel" parent="Debug tools"]
-modulate = Color(1, 0, 0, 1)
-offset_right = 272.0
-offset_bottom = 66.0
-scale = Vector2(1.77927, 1.66065)
-text = "test"
 
 [node name="PlayerCollisionTest" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_w2sw6")

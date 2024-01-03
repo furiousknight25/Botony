@@ -18,7 +18,7 @@ sky = SubResource("Sky_04y8a")
 [node name="Scene1" type="Node3D"]
 
 [node name="Camera3D" parent="." instance=ExtResource("2_8bj42")]
-transform = Transform3D(1, 0, 0, 0, 0.937889, 0.346936, 0, -0.346936, 0.937889, 0, 3.783, 10.904)
+transform = Transform3D(1, 0, 0, 0, 0.902149, 0.431425, 0, -0.431425, 0.902149, 0, 7.27901, 16.7487)
 
 [node name="Enviornment" type="Node3D" parent="."]
 
@@ -39,4 +39,4 @@ text = "1 meter tall box!"
 environment = SubResource("Environment_ymmp1")
 
 [node name="Nod" parent="." instance=ExtResource("1_iwwwd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54023, 1.95878, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54922, 1.91481, 0.0414803)

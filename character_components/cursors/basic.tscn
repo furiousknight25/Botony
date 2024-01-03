@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt51erwfn7sw6"]
+
+[ext_resource type="Script" path="res://character_components/cursors/basic.gd" id="1_4fj3a"]
+[ext_resource type="ArrayMesh" uid="uid://byp6qg6syqslv" path="res://raw_assets/meshes/test_meshes/aim1.tres" id="1_32pyn"]
+
+[node name="Basic" type="Node3D"]
+script = ExtResource("1_4fj3a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_32pyn")

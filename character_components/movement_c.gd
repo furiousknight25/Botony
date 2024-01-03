@@ -4,17 +4,21 @@ extends Node3D
 @export var animation_c : AnimationTree
 @export var base_acceleration := 50
 @export var max_speed := 6
+@export var max_speed_sprint := 8
 @export var friction := 10
 @export var rot_speed := 10.0
+@export var aim_subtract := 0 #set higher if you want slower when faced other way
 var camera : Camera3D
 
-enum STATES {IDLE, ACTIVE, GAP, DEPLOY}
+enum STATES {IDLE, ACTIVE, WALK, GAP, DEPLOY}
 var cur_state = STATES.IDLE
 
 var velocity := Vector3.ZERO
 var rot : float
+var angle_difference = 0
 const GRAVITY = -100
 var intent : Vector3
+var direction : Vector3
 
 signal movement_data
 
@@ -22,18 +26,20 @@ func _ready():
 	camera = get_tree().get_nodes_in_group("camera")[0]
 
 func _process(delta):
-	#animation_c.set('parameters/Blend2/blend_amount', velocity.length()/max_speed) #delete this when you make system
+	animation_c.set('parameters/Blend2/blend_amount', velocity.length()/max_speed) #delete this when you make system
 	#print(velocity.length()/max_speed) 
-	
 	
 	emit_signal('movement_data', velocity, rot)
 	body_to_move.move_and_slide()
 #region this dog is up bruh
+	#print(cur_state)
 	match cur_state:
 		STATES.IDLE:
 			idle_process(delta)
 		STATES.ACTIVE:
 			active_process(delta)
+		STATES.WALK:
+			walk_process(delta)
 		STATES.GAP:
 			gap_process(delta)
 		STATES.DEPLOY:
@@ -58,8 +64,14 @@ func active_process(delta):
 		var drift_force = (body_to_move.basis.x * drift_factor)
 		velocity -= drift_force
 		#var current_max_speed = max(0, (max_speed - (abs(drift_factor * 10))))
-		velocity = velocity.limit_length(max_speed)
+		velocity = velocity.limit_length(max_speed_sprint)
 		
+		
+func walk_process(delta):
+	if direction:
+		velocity += direction * base_acceleration * delta
+		velocity = velocity.limit_length(max_speed - (aim_subtract * angle_difference))
+
 func gap_process(delta):
 	pass
 
@@ -71,7 +83,10 @@ func deploy_process(delta):
 func set_state_idle():
 	cur_state = STATES.IDLE
 func set_state_active():
+	
 	cur_state = STATES.ACTIVE
+func set_state_walk():
+	cur_state = STATES.WALK
 func set_state_gap():
 	cur_state = STATES.GAP
 func set_state_deploy():
