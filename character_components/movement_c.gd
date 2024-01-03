@@ -32,7 +32,6 @@ func _process(delta):
 	emit_signal('movement_data', velocity, rot)
 	body_to_move.move_and_slide()
 #region this dog is up bruh
-	#print(cur_state)
 	match cur_state:
 		STATES.IDLE:
 			idle_process(delta)

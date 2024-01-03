@@ -30,9 +30,6 @@ func _process(delta):
 	var cam_vel = camera.global_transform.basis.z * input_cam.y * delta * 2
 	camera.position += cam_vel
 	
-	
-	
-#endregion
 #region debug devices
 	$"Debug tools/velocity".position = position
 	$"Debug tools/accel".position = position
@@ -41,7 +38,7 @@ func _process(delta):
 #endregion
 	input_movement(delta)
 	cursor_control(delta)
-	#print(velocity.dot(global_transform.basis.z))
+	
 func death():
 	queue_free()
 
@@ -75,12 +72,10 @@ func cursor_control(delta):
 	var mouse_pos = get_viewport().get_mouse_position()
 	var angle = screen_pos.angle_to_point(mouse_pos)
 	
-	
-	
 	#aimC.intent = position.angle_to(cursor.position)
 	#print(position, cursor.position)
 	#print(transform.looking_at(cursor.position, Vector3.UP))
-	#Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	#hm
 	var from = camera.project_ray_origin(mouse_pos)
 	var to = from + camera.project_ray_normal(mouse_pos) * 1000

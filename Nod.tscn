@@ -64,6 +64,7 @@ animation = &"idle"
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_mh2px"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xwpeg"]
+graph_offset = Vector2(-580.059, 5.30541)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_4f6uu")
 nodes/Animation/position = Vector2(-440, 100)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_gqxyc")
@@ -225,15 +226,15 @@ bones/0/name = "Bone"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, -7.10543e-15, 2.38419e-07, -7.10543e-15, 1, 5.96046e-08, -2.38419e-07, -5.96046e-08, 1, 0, 0, 0)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -0.000634311, 0.00176246)
-bones/0/rotation = Quaternion(0.00568857, 1.19207e-07, 1.13051e-09, 0.999984)
+bones/0/position = Vector3(0, -0.0208067, 0.00176246)
+bones/0/rotation = Quaternion(0.0122363, 1.19203e-07, 3.49942e-10, 0.999925)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Bone.001"
 bones/1/parent = 0
 bones/1/rest = Transform3D(-1.19209e-07, 1, -1.37425e-07, -1, -1.19209e-07, -4.51836e-07, -4.51836e-07, 1.37425e-07, 1, -2.10694e-07, -0.124657, 0.883713)
 bones/1/enabled = true
-bones/1/position = Vector3(-2.08484e-07, -0.125164, 0.883725)
-bones/1/rotation = Quaternion(1.2898e-05, -1.26365e-05, -0.707842, 0.706371)
+bones/1/position = Vector3(-2.13397e-07, -0.15321, 0.884381)
+bones/1/rotation = Quaternion(9.88667e-05, -9.81535e-05, -0.708535, 0.705676)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Cylinder"
 bones/2/parent = 0
@@ -244,7 +245,7 @@ bones/2/rotation = Quaternion(3.81551e-08, -1.20024e-07, 4.65661e-10, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Cylinder" type="BoneAttachment3D" parent="jump_nod_2_/Armature_001/Skeleton3D"]
-transform = Transform3D(1, -1.83605e-09, -1.62427e-09, 1.81746e-09, 0.999935, -0.011377, 1.64506e-09, 0.011377, 0.999935, 1.77985e-09, -0.000634447, 0.00176258)
+transform = Transform3D(1, 1.28605e-09, -1.65166e-09, -1.32608e-09, 0.999701, -0.0244708, 1.61971e-09, 0.0244708, 0.999701, 1.77985e-09, -0.0208068, 0.00176258)
 bone_name = "Cylinder"
 bone_idx = 2
 
@@ -254,7 +255,7 @@ mesh = SubResource("ArrayMesh_ipkb8")
 skeleton = NodePath("")
 
 [node name="Hand" type="BoneAttachment3D" parent="jump_nod_2_/Armature_001/Skeleton3D"]
-transform = Transform3D(-0.00208115, 0.999998, -3.58732e-05, -0.999933, -0.00208143, -0.0113773, -0.0113773, 1.21929e-05, 0.999935, 2.32987e-09, -0.135845, 0.884006)
+transform = Transform3D(-0.0040431, 0.999992, -0.000278392, -0.999692, -0.00404871, -0.0244711, -0.0244721, 0.000179367, 0.9997, -2.90338e-09, -0.195612, 0.882129)
 bone_name = "Bone.001"
 bone_idx = 1
 

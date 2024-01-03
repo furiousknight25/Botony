@@ -28,4 +28,6 @@ func cursor_place(pos, rot):
 	cursor.position = pos
 	cursor.rotation.y = rot
 	cursor.rotation.z = 0
+	
+	cursor.gun_position = global_position
 	#cursor_change(distance) send this data into the cursor so it plays an animation and decides its effects
