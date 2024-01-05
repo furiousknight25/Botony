@@ -86,11 +86,11 @@ func cursor_control(delta):
 	ray_query.to = to
 	var raycast_result = space.intersect_ray(ray_query)
 	if raycast_result:
-		gunC.cursor_place(raycast_result.position, atan2((position.x - cursor.position.x), (position.z - cursor.position.z)) + PI)
+		gunC.cursor_place(raycast_result.position, atan2(($GunbarrelTest.global_position.x - cursor.position.x), ($GunbarrelTest.global_position.z - cursor.position.z)) + PI)
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		aimC.shoot()
 	
-	var angle_facing = atan2((position.x - cursor.position.x), (position.z - cursor.position.z))
+	var angle_facing = atan2(($GunbarrelTest.global_position.x - cursor.position.x), ($GunbarrelTest.global_position.z - cursor.position.z))
 	aimC.intent = angle_facing
 	
 	

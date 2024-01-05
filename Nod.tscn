@@ -226,15 +226,15 @@ bones/0/name = "Bone"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, -7.10543e-15, 2.38419e-07, -7.10543e-15, 1, 5.96046e-08, -2.38419e-07, -5.96046e-08, 1, 0, 0, 0)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -0.0208067, 0.00176246)
-bones/0/rotation = Quaternion(0.0122363, 1.19203e-07, 3.49942e-10, 0.999925)
+bones/0/position = Vector3(0, -0.0207582, 0.00176246)
+bones/0/rotation = Quaternion(0.0124503, 1.19204e-07, 3.2443e-10, 0.999923)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Bone.001"
 bones/1/parent = 0
 bones/1/rest = Transform3D(-1.19209e-07, 1, -1.37425e-07, -1, -1.19209e-07, -4.51836e-07, -4.51836e-07, 1.37425e-07, 1, -2.10694e-07, -0.124657, 0.883713)
 bones/1/enabled = true
-bones/1/position = Vector3(-2.13397e-07, -0.15321, 0.884381)
-bones/1/rotation = Quaternion(9.88667e-05, -9.81535e-05, -0.708535, 0.705676)
+bones/1/position = Vector3(-2.13107e-07, -0.153327, 0.884384)
+bones/1/rotation = Quaternion(0.000104965, -0.000104282, -0.708821, 0.705389)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Cylinder"
 bones/2/parent = 0
@@ -245,7 +245,7 @@ bones/2/rotation = Quaternion(3.81551e-08, -1.20024e-07, 4.65661e-10, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Cylinder" type="BoneAttachment3D" parent="jump_nod_2_/Armature_001/Skeleton3D"]
-transform = Transform3D(1, 1.28605e-09, -1.65166e-09, -1.32608e-09, 0.999701, -0.0244708, 1.61971e-09, 0.0244708, 0.999701, 1.77985e-09, -0.0208068, 0.00176258)
+transform = Transform3D(1, 1.38813e-09, -1.65026e-09, -1.42879e-09, 0.99969, -0.0248987, 1.61519e-09, 0.0248987, 0.99969, 1.77985e-09, -0.0207584, 0.00176258)
 bone_name = "Cylinder"
 bone_idx = 2
 
@@ -255,16 +255,20 @@ mesh = SubResource("ArrayMesh_ipkb8")
 skeleton = NodePath("")
 
 [node name="Hand" type="BoneAttachment3D" parent="jump_nod_2_/Armature_001/Skeleton3D"]
-transform = Transform3D(-0.0040431, 0.999992, -0.000278392, -0.999692, -0.00404871, -0.0244711, -0.0244721, 0.000179367, 0.9997, -2.90338e-09, -0.195612, 0.882129)
+transform = Transform3D(-0.00485385, 0.999988, -0.000295683, -0.999678, -0.0048597, -0.0248989, -0.0249, 0.000174733, 0.99969, -2.62747e-09, -0.196058, 0.882054)
 bone_name = "Bone.001"
 bone_idx = 1
 
 [node name="GunC" parent="jump_nod_2_/Armature_001/Skeleton3D/Hand" instance=ExtResource("25_yqyfh")]
-transform = Transform3D(-0.102226, -0.994308, -0.0300447, 0.994212, -0.101119, -0.0363049, 0.0330601, -0.0335821, 0.998889, -0.324367, 0.388585, -0.0899697)
+transform = Transform3D(-0.0480251, -0.998822, -0.00704826, 0.995702, -0.0473131, -0.0796209, 0.0791936, -0.0108417, 0.9968, -0.286169, 0.405275, -0.0854315)
 fire_speed = 0.1
 
 [node name="bullet_spawn" parent="jump_nod_2_/Armature_001/Skeleton3D/Hand/GunC" index="0"]
 transform = Transform3D(-0.99945, 0.0331552, -8.73461e-08, 0.0331261, 0.998573, 0.0418756, 0.00138848, 0.0418526, -0.999123, -0.0884705, 0.428106, 1.9105)
+
+[node name="Ticker" parent="jump_nod_2_/Armature_001/Skeleton3D/Hand/GunC" index="3"]
+transform = Transform3D(0.78132, 0, 0, 0, 0.78132, 0, 0, 0, 0.78132, 0, 0, 0)
+top_level = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="jump_nod_2_"]
 libraries = {
@@ -297,7 +301,7 @@ mesh = SubResource("SphereMesh_h1y4p")
 script = ExtResource("26_3fycl")
 
 [node name="Area3D" type="StaticBody3D" parent="Debug tools"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.374876, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.535758, 0)
 collision_layer = 1024
 collision_mask = 0
 
@@ -320,6 +324,9 @@ text = "test"
 
 [node name="PlayerCollisionTest" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_w2sw6")
+
+[node name="GunbarrelTest" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206143, 0.202129, 0.347597)
 
 [connection signal="death" from="HealthC" to="." method="death"]
 [connection signal="movement_data" from="MovementC" to="." method="_set_velocity"]

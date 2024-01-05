@@ -1,11 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://c456vx5ay5bgw"]
+[gd_scene load_steps=8 format=3 uid="uid://c456vx5ay5bgw"]
 
 [ext_resource type="PackedScene" uid="uid://han2gkcqd0dl" path="res://Nod.tscn" id="1_iwwwd"]
 [ext_resource type="PackedScene" uid="uid://buddhcu3qos45" path="res://character_components/camera_3d.tscn" id="2_8bj42"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f33gb"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ev5g5"]
+albedo_color = Color(1, 0.45098, 1, 1)
+metallic = 0.37
+roughness = 0.18
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_34jlw"]
+sky_curve = 0.197926
 
 [sub_resource type="Sky" id="Sky_04y8a"]
 sky_material = SubResource("ProceduralSkyMaterial_34jlw")
@@ -14,11 +20,15 @@ sky_material = SubResource("ProceduralSkyMaterial_34jlw")
 background_mode = 2
 background_energy_multiplier = 1.32
 sky = SubResource("Sky_04y8a")
+glow_intensity = 2.12
+glow_strength = 1.24
+glow_bloom = 1.0
+fog_density = 0.001
 
 [node name="Scene1" type="Node3D"]
 
 [node name="Camera3D" parent="." instance=ExtResource("2_8bj42")]
-transform = Transform3D(1, 0, 0, 0, 0.902149, 0.431425, 0, -0.431425, 0.902149, 0, 7.27901, 16.7487)
+transform = Transform3D(1, 0, 0, 0, 0.902149, 0.431425, 0, -0.431425, 0.902149, 0, 4.55762, 10.6507)
 
 [node name="Enviornment" type="Node3D" parent="."]
 
@@ -29,6 +39,7 @@ mesh = SubResource("CylinderMesh_f33gb")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Enviornment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0832792, 0)
+material_override = SubResource("StandardMaterial3D_ev5g5")
 
 [node name="Label3D" type="Label3D" parent="Enviornment/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00201988, 0.635018, 0.000769615)

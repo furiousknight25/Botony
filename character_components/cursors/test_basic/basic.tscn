@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://bt51erwfn7sw6"]
 
-[ext_resource type="Script" path="res://character_components/cursors/basic.gd" id="1_4fj3a"]
-[ext_resource type="Animation" uid="uid://drawyw807acho" path="res://character_components/cursors/test_basic/closed.res" id="2_d85qy"]
-[ext_resource type="Animation" uid="uid://b0iyx4748j0ih" path="res://character_components/cursors/test_basic/open.res" id="3_eq1ow"]
+[ext_resource type="Script" path="res://character_components/cursors/test_basic/basic.gd" id="1_tet6x"]
+[ext_resource type="Animation" uid="uid://drawyw807acho" path="res://character_components/cursors/test_basic/closed.res" id="2_xylha"]
+[ext_resource type="Animation" uid="uid://b0iyx4748j0ih" path="res://character_components/cursors/test_basic/open.res" id="3_1oxmm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocicf"]
 resource_name = "Material.001"
@@ -46,8 +46,8 @@ bind/2/pose = Transform3D(2.6298, 0, -6.26993e-07, 0, 2.6298, 0, 6.26993e-07, 0,
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2wq42"]
 _data = {
-"closed": ExtResource("2_d85qy"),
-"open": ExtResource("3_eq1ow")
+"closed": ExtResource("2_xylha"),
+"open": ExtResource("3_1oxmm")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e6hc6"]
@@ -59,7 +59,7 @@ animation = &"open"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_i5pmh"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ahwv6"]
-graph_offset = Vector2(-481.992, 72.3759)
+graph_offset = Vector2(-426.977, -2.45387)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_2d661")
 nodes/Animation/position = Vector2(-120, 220)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_e6hc6")
@@ -70,7 +70,7 @@ nodes/output/position = Vector2(360, 140)
 node_connections = [&"Blend2", 0, &"Animation 2", &"Blend2", 1, &"Animation", &"output", 0, &"Blend2"]
 
 [node name="Basic" type="Node3D"]
-script = ExtResource("1_4fj3a")
+script = ExtResource("1_tet6x")
 
 [node name="cursor" type="Node3D" parent="."]
 
@@ -89,15 +89,15 @@ bones/1/name = "right"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, -1.26014, 0.0563991, -0.0162455)
 bones/1/enabled = true
-bones/1/position = Vector3(-0.665652, 0.0563991, -0.0162455)
-bones/1/rotation = Quaternion(0, 1.19209e-07, 0, 1)
+bones/1/position = Vector3(-2.18942, 0.0563991, -0.0162455)
+bones/1/rotation = Quaternion(0, -0.0786795, 0, 0.9969)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "left"
 bones/2/parent = 0
 bones/2/rest = Transform3D(1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, 1.17358, 0.0563991, -0.0162455)
 bones/2/enabled = true
-bones/2/position = Vector3(0.554649, 0.0563991, -0.0162455)
-bones/2/rotation = Quaternion(0, 1.19209e-07, 0, 1)
+bones/2/position = Vector3(2.07841, 0.0563991, -0.0162455)
+bones/2/rotation = Quaternion(0, 0.0585483, 0, 0.998285)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Cube_020" type="MeshInstance3D" parent="cursor/Armature/Skeleton3D"]
@@ -116,4 +116,4 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeBlendTree_ahwv6")
 anim_player = NodePath("../cursor/AnimationPlayer")
-parameters/Blend2/blend_amount = 0.0
+parameters/Blend2/blend_amount = 1.0
