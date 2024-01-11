@@ -8,6 +8,9 @@ var fullscreen := false
 @onready var gunC = $jump_nod_2_/Armature_001/Skeleton3D/Hand/GunC
 @onready var cursor = gunC.get_child(3)
 @onready var camera = get_tree().get_nodes_in_group("camera")[0]
+@onready var double_tap_timer = $DoubleTap
+#damn i've lasted this long without adding a variable other than fullscreen 
+
 
 func _ready():
 	movementC.STATES.IDLE
@@ -45,18 +48,28 @@ func death():
 func _set_velocity(v, r):
 	velocity = v
 
+var old_input 
+var double_tap = 0
 func input_movement(delta): #region Input movement perhaps add can press button to prevent these states, like in deploy
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-	
-	if Input.is_action_pressed('sprint'): #yesssss... small victory :)
-		if movementC.cur_state != movementC.STATES.ACTIVE:
-			movementC.set_state_active()
-			$"Debug tools/debugtext".text = 'state running'
-	elif !input_dir:
+
+	if input_dir and double_tap == 0 and double_tap_timer.is_stopped():
+		double_tap_timer.start()
+		double_tap += 1
+		old_input = input_dir
+	if input_dir == old_input and double_tap == 0  and !double_tap_timer.is_stopped():
+		double_tap = 0
+		double_tap_timer.stop()
+		movementC.set_state_active()
+	if !input_dir:
+		double_tap = 0
+		
+	#yesssss... small victory :)
+	if !input_dir:
 		if movementC.cur_state != movementC.STATES.IDLE:
 			movementC.set_state_idle()
 			$"Debug tools/debugtext".text = 'state idle'
-	elif input_dir:
+	elif input_dir and movementC.cur_state != movementC.STATES.ACTIVE:
 		if movementC.cur_state != movementC.STATES.WALK:
 			movementC.set_state_walk()
 			$"Debug tools/debugtext".text = 'state jog/walk'
@@ -66,6 +79,8 @@ func input_movement(delta): #region Input movement perhaps add can press button 
 	movementC.intent = intent
 	
 	movementC.direction = Vector3(input_dir.x, 0, input_dir.y)
+	
+	
 func cursor_control(delta):
 	var offset = PI/2 + camera.rotation.y
 	var screen_pos = camera.unproject_position(global_transform.origin)
@@ -93,4 +108,5 @@ func cursor_control(delta):
 	var angle_facing = atan2(($GunbarrelTest.global_position.x - cursor.position.x), ($GunbarrelTest.global_position.z - cursor.position.z))
 	aimC.intent = angle_facing
 	
-	
+func _on_double_tap_timeout():
+	double_tap = 0

@@ -226,15 +226,15 @@ bones/0/name = "Bone"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, -7.10543e-15, 2.38419e-07, -7.10543e-15, 1, 5.96046e-08, -2.38419e-07, -5.96046e-08, 1, 0, 0, 0)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -0.0207582, 0.00176246)
-bones/0/rotation = Quaternion(0.0124503, 1.19204e-07, 3.2443e-10, 0.999923)
+bones/0/position = Vector3(0, -0.00170113, 0.00176246)
+bones/0/rotation = Quaternion(0.0117384, 1.19219e-07, 4.09219e-10, 0.999931)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Bone.001"
 bones/1/parent = 0
 bones/1/rest = Transform3D(-1.19209e-07, 1, -1.37425e-07, -1, -1.19209e-07, -4.51836e-07, -4.51836e-07, 1.37425e-07, 1, -2.10694e-07, -0.124657, 0.883713)
 bones/1/enabled = true
-bones/1/position = Vector3(-2.13107e-07, -0.153327, 0.884384)
-bones/1/rotation = Quaternion(0.000104965, -0.000104282, -0.708821, 0.705389)
+bones/1/position = Vector3(-2.07691e-07, -0.128854, 0.883811)
+bones/1/rotation = Quaternion(0.00020188, -0.000201242, -0.714938, 0.699188)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Cylinder"
 bones/2/parent = 0
@@ -245,7 +245,7 @@ bones/2/rotation = Quaternion(3.81551e-08, -1.20024e-07, 4.65661e-10, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Cylinder" type="BoneAttachment3D" parent="jump_nod_2_/Armature_001/Skeleton3D"]
-transform = Transform3D(1, 1.38813e-09, -1.65026e-09, -1.42879e-09, 0.99969, -0.0248987, 1.61519e-09, 0.0248987, 0.99969, 1.77985e-09, -0.0207584, 0.00176258)
+transform = Transform3D(1, 1.04917e-09, -1.61734e-09, -1.08685e-09, 0.999724, -0.0234752, 1.59227e-09, 0.0234752, 0.999724, 1.77985e-09, -0.00170127, 0.00176258)
 bone_name = "Cylinder"
 bone_idx = 2
 
@@ -255,7 +255,7 @@ mesh = SubResource("ArrayMesh_ipkb8")
 skeleton = NodePath("")
 
 [node name="Hand" type="BoneAttachment3D" parent="jump_nod_2_/Armature_001/Skeleton3D"]
-transform = Transform3D(-0.00485385, 0.999988, -0.000295683, -0.999678, -0.0048597, -0.0248989, -0.0249, 0.000174733, 0.99969, -2.62747e-09, -0.196058, 0.882054)
+transform = Transform3D(-0.0222715, 0.999752, -0.000569837, -0.999476, -0.0222788, -0.0234697, -0.0234766, 4.68325e-05, 0.999724, 2.7819e-09, -0.151267, 0.882305)
 bone_name = "Bone.001"
 bone_idx = 1
 
@@ -328,7 +328,12 @@ shape = SubResource("CapsuleShape3D_w2sw6")
 [node name="GunbarrelTest" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206143, 0.202129, 0.347597)
 
+[node name="DoubleTap" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="death" from="HealthC" to="." method="death"]
 [connection signal="movement_data" from="MovementC" to="." method="_set_velocity"]
+[connection signal="timeout" from="DoubleTap" to="." method="_on_double_tap_timeout"]
 
 [editable path="jump_nod_2_/Armature_001/Skeleton3D/Hand/GunC"]

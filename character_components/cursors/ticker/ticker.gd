@@ -8,7 +8,6 @@ var length = 0.0
 @onready var scale_start = scale.x
 
 func cursor_prop():
-	print(scale.x)
 	var old_stage = stage
 	stage = floor(3* distance)/3
 	if stage != old_stage:
