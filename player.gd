@@ -63,7 +63,7 @@ func input_movement(delta): #region Input movement perhaps add can press button 
 		movementC.set_state_active()
 	if !input_dir:
 		double_tap = 0
-		
+
 	#yesssss... small victory :)
 	if !input_dir:
 		if movementC.cur_state != movementC.STATES.IDLE:
