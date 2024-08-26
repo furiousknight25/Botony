@@ -16,7 +16,7 @@ func cursor_prop():
 		if stage <= old_stage:
 			$CurveTween2.play(.1, scale_start, scale_start - .001)
 		$CurveTween.play(.1, length, stage)
-		
+	
 	#print(length)
 	animation.set('parameters/Blend2/blend_amount', length)
 	#animation.set("parameters/Transition/transition_request", str(stage))

@@ -23,7 +23,6 @@ func fire_weapon():
 func _on_bullet_delay_timeout():
 	fire_ready = true
 	
-	
 func cursor_place(pos, rot):
 	cursor.position = pos
 	cursor.rotation.y = rot

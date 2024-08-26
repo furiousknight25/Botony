@@ -26,7 +26,7 @@ func _ready():
 	camera = get_tree().get_nodes_in_group("camera")[0]
 
 func _process(delta):
-	animation_c.set('parameters/Blend2/blend_amount', velocity.length()/max_speed) #delete this when you make system
+	animation_c.set('parameters/Blend2/blend_amount', velocity.length()/8) #delete this when you make system
 	#print(velocity.length()/max_speed) 
 	
 	emit_signal('movement_data', velocity, rot)
@@ -82,7 +82,6 @@ func deploy_process(delta):
 func set_state_idle():
 	cur_state = STATES.IDLE
 func set_state_active():
-	
 	cur_state = STATES.ACTIVE
 func set_state_walk():
 	cur_state = STATES.WALK

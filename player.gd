@@ -1,43 +1,23 @@
 extends CharacterBody3D
 #im chosing the keep the player scene and script not in a folder because we will acess it a lot 
 
-var fullscreen := false 
-
 @onready var movementC = $MovementC
 @onready var aimC = $AimC
-@onready var gunC = $jump_nod_2_/Armature_001/Skeleton3D/Hand/GunC
+@export var gunC : Node3D
 @onready var cursor = gunC.get_child(3)
 @onready var camera = get_tree().get_nodes_in_group("camera")[0]
 @onready var double_tap_timer = $DoubleTap
 #damn i've lasted this long without adding a variable other than fullscreen 
 
-
 func _ready():
 	movementC.STATES.IDLE
+
 func _process(delta):
-#region basic debug tool
-	if Input.is_action_just_pressed("exit"):
-		get_tree().quit()
-	if Input.is_action_just_pressed("fullscreen"):
-		if !fullscreen:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-			fullscreen = true
-		else:
-			fullscreen = false
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	if Input.is_action_just_pressed('restart'):
-		get_tree().reload_current_scene()
-	#print(Engine.get_frames_per_second())
 	var input_cam = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	camera.rotation.y -= input_cam.x * delta
 	var cam_vel = camera.global_transform.basis.z * input_cam.y * delta * 2
 	camera.position += cam_vel
 	
-#region debug devices
-	$"Debug tools/velocity".position = position
-	$"Debug tools/accel".position = position
-	$"Debug tools/velocity".target_position = velocity
-	$"Debug tools/accel".target_position = movementC.global_transform.basis.z * delta * movementC.base_acceleration * 50
 #endregion
 	input_movement(delta)
 	cursor_control(delta)
@@ -76,12 +56,15 @@ func input_movement(delta): #region Input movement perhaps add can press button 
 	
 	movementC.rotation.y = camera.rotation.y
 	var intent = (movementC.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	print(Vector2(cos(movementC.global_rotation.y), sin(movementC.global_rotation.y)))
+	print(movementC.transform.basis)
 	movementC.intent = intent
 	
 	movementC.direction = Vector3(input_dir.x, 0, input_dir.y)
 	
 	
 func cursor_control(delta):
+	
 	var offset = PI/2 + camera.rotation.y
 	var screen_pos = camera.unproject_position(global_transform.origin)
 	var mouse_pos = get_viewport().get_mouse_position()

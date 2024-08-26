@@ -14,4 +14,3 @@ func change_h(amount):
 	
 	if health <= 0:
 		emit_signal('death')
-
