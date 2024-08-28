@@ -1,10 +1,10 @@
 extends AnimationTree
 
 
-var skeleton_ik
-# Called when the node enters the scene tree for the first time.
+#idea, have a override, or 
+
 func _ready():
 	pass
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
 	pass
