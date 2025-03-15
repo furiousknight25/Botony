@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://han2gkcqd0dl" path="res://Nod.tscn" id="1_iwwwd"]
 [ext_resource type="PackedScene" uid="uid://buddhcu3qos45" path="res://character_components/camera_3d.tscn" id="2_8bj42"]
-[ext_resource type="Script" path="res://interactable_enviornment/Gap.gd" id="3_frjtq"]
+[ext_resource type="Script" uid="uid://bi2hu6v4p56xh" path="res://interactable_enviornment/Gap.gd" id="3_frjtq"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f33gb"]
 
@@ -34,7 +34,7 @@ size = Vector3(1.17529, 1, 6.44812)
 [node name="Scene1" type="Node3D"]
 
 [node name="Camera3D" parent="." instance=ExtResource("2_8bj42")]
-transform = Transform3D(1, 0, 0, 0, 0.902149, 0.431425, 0, -0.431425, 0.902149, 0, 4.55762, 10.6507)
+transform = Transform3D(1, 0, 0, 0, 0.902149, 0.431425, 0, -0.431425, 0.902149, 0, 1.38836, 3.99731)
 
 [node name="Enviornment" type="Node3D" parent="."]
 
@@ -45,6 +45,7 @@ mesh = SubResource("CylinderMesh_f33gb")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Enviornment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0832792, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_ev5g5")
 
 [node name="Label3D" type="Label3D" parent="Enviornment/CSGBox3D"]

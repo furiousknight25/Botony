@@ -20,7 +20,7 @@ func _process(delta):
 		body.rotation.y = intent + PI
 		body_to_rotate.rotation.y = lerp_angle(body_to_rotate.rotation.y, intent + PI, aim_speed * delta)
 		
-		gunC.global_rotation.y = atan2(gunC.global_position.x - gunC.cursor.global_position.x, gunC.global_position.z - gunC.cursor.global_position.z) + PI
+		
 	position = body.position
 	body_to_rotate.position = position
 

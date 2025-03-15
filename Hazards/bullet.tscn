@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dvijdyu6ovw22"]
 
-[ext_resource type="Script" path="res://etc_scripts/bdeteullet.gd" id="1_qrfws"]
+[ext_resource type="Script" uid="uid://dj2o2fk3cxcdb" path="res://etc_scripts/bdeteullet.gd" id="1_qrfws"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_336h3"]
 radius = 0.1
@@ -63,8 +63,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xnmc8"]
 _data = {
-"RESET": SubResource("Animation_e2tmp"),
-"spin": SubResource("Animation_mt3v0")
+&"RESET": SubResource("Animation_e2tmp"),
+&"spin": SubResource("Animation_mt3v0")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7b4ei"]

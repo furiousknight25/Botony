@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ctvj7tai32mf8"]
 
-[ext_resource type="Script" path="res://character_components/aim_c.gd" id="1_s58pl"]
+[ext_resource type="Script" uid="uid://ftu2nwjs0dpj" path="res://character_components/aim_c.gd" id="1_s58pl"]
 
 [node name="AimC" type="Node3D"]
 top_level = true

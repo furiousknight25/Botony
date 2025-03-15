@@ -4,7 +4,7 @@ extends CharacterBody3D
 @onready var movementC = $MovementC
 @onready var aimC = $AimC
 @export var gunC : Node3D
-@onready var cursor = gunC.get_child(3)
+@onready var cursorC = gunC.get_child(3)
 @onready var camera = get_tree().get_nodes_in_group("camera")[0]
 @onready var double_tap_timer = $DoubleTap
 #damn i've lasted this long without adding a variable other than fullscreen 
@@ -20,7 +20,7 @@ func _process(delta):
 	
 #endregion
 	input_movement(delta)
-	cursor_control(delta)
+	cursorC_control(delta)
 	
 func death():
 	queue_free()
@@ -56,23 +56,21 @@ func input_movement(delta): #region Input movement perhaps add can press button 
 	
 	movementC.rotation.y = camera.rotation.y
 	var intent = (movementC.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	print(Vector2(cos(movementC.global_rotation.y), sin(movementC.global_rotation.y)))
-	print(movementC.transform.basis)
 	movementC.intent = intent
 	
 	movementC.direction = Vector3(input_dir.x, 0, input_dir.y)
 	
 	
-func cursor_control(delta):
+func cursorC_control(delta):
 	
 	var offset = PI/2 + camera.rotation.y
 	var screen_pos = camera.unproject_position(global_transform.origin)
 	var mouse_pos = get_viewport().get_mouse_position()
 	var angle = screen_pos.angle_to_point(mouse_pos)
 	
-	#aimC.intent = position.angle_to(cursor.position)
-	#print(position, cursor.position)
-	#print(transform.looking_at(cursor.position, Vector3.UP))
+	#aimC.intent = position.angle_to(cursorC.position)
+	#print(position, cursorC.position)
+	#print(transform.looking_at(cursorC.position, Vector3.UP))
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	#hm
 	var from = camera.project_ray_origin(mouse_pos)
@@ -84,12 +82,12 @@ func cursor_control(delta):
 	ray_query.to = to
 	var raycast_result = space.intersect_ray(ray_query)
 	if raycast_result:
-		gunC.cursor_place(raycast_result.position, atan2(($GunbarrelTest.global_position.x - cursor.position.x), ($GunbarrelTest.global_position.z - cursor.position.z)) + PI)
+		gunC.cursorC_place(raycast_result.position, atan2((gunC.global_position.x - cursorC.position.x), (gunC.global_position.z - cursorC.position.z)) + PI)
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		aimC.shoot()
 	
-	var angle_facing = atan2(($GunbarrelTest.global_position.x - cursor.position.x), ($GunbarrelTest.global_position.z - cursor.position.z))
+	var angle_facing = atan2((gunC.global_position.x - cursorC.position.x), (gunC.global_position.z - cursorC.position.z))
 	aimC.intent = angle_facing
-	
+
 func _on_double_tap_timeout():
 	double_tap = 0

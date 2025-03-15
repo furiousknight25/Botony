@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=4 uid="uid://d4k8ylvfofpf1"]
 
-[ext_resource type="Script" path="res://character_components/cursors/ticker/ticker.gd" id="1_14f7h"]
+[ext_resource type="Script" uid="uid://crjsmm8jdy1p5" path="res://character_components/cursors/ticker/ticker.gd" id="1_14f7h"]
 [ext_resource type="PackedScene" uid="uid://bdsggacivoyca" path="res://etc_scripts/CurveTween.tscn" id="2_obkoi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3e2su"]
@@ -119,10 +119,10 @@ tracks/1/keys = PackedFloat32Array(0, 1, 2.12614, 0, 0)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p0ddm"]
 _data = {
-"0": SubResource("Animation_cxx65"),
-"1": SubResource("Animation_fude8"),
-"2": SubResource("Animation_u7mec"),
-"3": SubResource("Animation_rmrsq")
+&"0": SubResource("Animation_cxx65"),
+&"1": SubResource("Animation_fude8"),
+&"2": SubResource("Animation_u7mec"),
+&"3": SubResource("Animation_rmrsq")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cui62"]
@@ -144,7 +144,7 @@ nodes/Blend2/position = Vector2(-11.5974, 144.13)
 node_connections = [&"Blend2", 0, &"Animation", &"Blend2", 1, &"Animation 2", &"output", 0, &"Blend2"]
 
 [sub_resource type="Curve" id="Curve_dis7s"]
-max_value = 100.0
+_limits = [0.0, 100.0, 0.0, 1.0]
 _data = [Vector2(0, 0.989011), 0.0, 2.00922, 0, 0, Vector2(0.631068, 58.2418), 0.0, 0.0, 0, 0, Vector2(1, 1), -2.0407, 0.0, 0, 0]
 point_count = 3
 

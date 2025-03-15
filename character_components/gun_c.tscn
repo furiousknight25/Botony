@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkwvq36todudh"]
+[gd_scene load_steps=3 format=3 uid="uid://dkwvq36todudh"]
 
-[ext_resource type="Script" path="res://character_components/gun_c.gd" id="1_a6rah"]
+[ext_resource type="Script" uid="uid://t11wkano36ku" path="res://character_components/gun_c.gd" id="1_a6rah"]
+[ext_resource type="ArrayMesh" uid="uid://b36chjx2jwfak" path="res://raw_assets/meshes/test_meshes/testgun.tres" id="2_4gkic"]
 
 [node name="GunC" type="Node3D"]
 transform = Transform3D(0.998809, -0.0230003, 0.0430309, 0.0232699, 0.999713, -0.00577401, -0.0428857, 0.00676846, 0.999057, -0.0537463, 0.395016, -0.315144)
@@ -9,6 +10,7 @@ script = ExtResource("1_a6rah")
 [node name="bullet_spawn" type="Node3D" parent="."]
 
 [node name="gun_mesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_4gkic")
 
 [node name="bullet_delay" type="Timer" parent="."]
 

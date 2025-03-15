@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var fire_speed := .5
-@export var cursor : Node3D #this will be a scene with its own cursor code 
+@export var g_cursor : cursor #this will be a scene with its own g_cursor code 
 
 @export var bullet_type = "res://Hazards/bullet.tscn"
 var fire_ready = true
@@ -10,7 +10,6 @@ var fire_ready = true
 
 func _ready():
 	bullet_delay.wait_time = fire_speed
-	cursor.top_level = true
 	
 func fire_weapon():
 	if fire_ready == false: return
@@ -23,10 +22,10 @@ func fire_weapon():
 func _on_bullet_delay_timeout():
 	fire_ready = true
 	
-func cursor_place(pos, rot):
-	cursor.position = pos
-	cursor.rotation.y = rot
-	cursor.rotation.z = 0
+func cursorC_place(pos, rot):
+	g_cursor.position = pos
+	g_cursor.rotation.y = rot
+	g_cursor.rotation.z = 0
 	
-	cursor.gun_position = global_position
-	#cursor_change(distance) send this data into the cursor so it plays an animation and decides its effects
+	g_cursor.gun_position = global_position
+	#g_cursor_change(distance) send this data into the g_cursor so it plays an animation and decides its effects

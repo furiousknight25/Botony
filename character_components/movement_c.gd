@@ -1,9 +1,9 @@
 extends Node3D
 
 @export var body_to_move : CharacterBody3D
-@export var animation_c : AnimationTree
+@export var animation_c : AnimationC
 @export var base_acceleration := 50
-@export var max_speed := 6
+@export var max_speed := 3
 @export var max_speed_sprint := 8
 @export var friction := 10
 @export var rot_speed := 10.0
@@ -25,12 +25,11 @@ signal movement_data
 func _ready():
 	camera = get_tree().get_nodes_in_group("camera")[0]
 
-func _process(delta):
-	animation_c.set('parameters/Blend2/blend_amount', velocity.length()/8) #delete this when you make system
-	#print(velocity.length()/max_speed) 
-	
+func _process(delta): 
+	animation_c.velocity = Vector2(velocity.x, velocity.z).rotated($"../base".rotation.y)/max_speed
 	emit_signal('movement_data', velocity, rot)
 	body_to_move.move_and_slide()
+	
 #region this dog is up bruh
 	match cur_state:
 		STATES.IDLE:
@@ -65,26 +64,34 @@ func active_process(delta):
 		#var current_max_speed = max(0, (max_speed - (abs(drift_factor * 10))))
 		velocity = velocity.limit_length(max_speed_sprint)
 		
-		
 func walk_process(delta):
 	if direction:
 		velocity += direction * base_acceleration * delta
-		velocity = velocity.limit_length(max_speed - (aim_subtract * angle_difference))
+		#velocity = velocity.limit_length(max_speed - (aim_subtract * angle_difference))
+		velocity = velocity.limit_length(max_speed)
 
 func gap_process(delta):
 	pass
 
 func deploy_process(delta):
 	pass
-	
+
+# charge function
+
+
+
+
 #endregion
 #region set state
 func set_state_idle():
 	cur_state = STATES.IDLE
+	animation_c.set_idle()
 func set_state_active():
 	cur_state = STATES.ACTIVE
+	animation_c.set_moving()
 func set_state_walk():
 	cur_state = STATES.WALK
+	animation_c.set_moving()
 func set_state_gap():
 	cur_state = STATES.GAP
 func set_state_deploy():
