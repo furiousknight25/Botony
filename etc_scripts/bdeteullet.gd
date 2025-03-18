@@ -12,10 +12,10 @@ func _ready():
 	var X = rng.randf_range(-recoil_rate, recoil_rate) #perhaps we want to do random rangle somewhere else
 	var Y = rng.randf_range(-recoil_rate, recoil_rate)
 	var Z = rng.randf_range(-recoil_rate, recoil_rate)
-	global_rotation +=  Vector3(deg_to_rad(X),deg_to_rad(Y),deg_to_rad(Z))
+	#global_rotation +=  Vector3(deg_to_rad(X),deg_to_rad(Y),deg_to_rad(Z))
 
 func _physics_process(delta):
-	$Area3D.position.z += -SPEED * delta
+	$Area3D.position.z -= -SPEED * delta
 
 func _on_area_3d_body_entered(body):
 	if body.is_in_group("soldier"):

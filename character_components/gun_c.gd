@@ -1,4 +1,4 @@
-extends Node3D
+class_name GunC extends Node3D
 
 @export var fire_speed := .5
 @export var g_cursor : cursor #this will be a scene with its own g_cursor code 
@@ -22,10 +22,10 @@ func fire_weapon():
 func _on_bullet_delay_timeout():
 	fire_ready = true
 	
-func cursorC_place(pos, rot):
+func cursorC_place(pos : Vector3):
 	g_cursor.position = pos
-	g_cursor.rotation.y = rot
+	g_cursor.rotation.y = atan2((global_position.x - g_cursor.position.x), (global_position.z - g_cursor.position.z)) + PI
 	g_cursor.rotation.z = 0
-	
+
 	g_cursor.gun_position = global_position
 	#g_cursor_change(distance) send this data into the g_cursor so it plays an animation and decides its effects

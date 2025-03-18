@@ -1,5 +1,7 @@
 class_name AnimationC extends AnimationTree
-#Animation Controller is useful for all the little bits of small details in playing animations and ONLY playing animations
+#Animation Controller is useful for all the little bits of small details in playing animations and ONLY playing animations based on each big anim
+#also manages base animations, put a script for each little modificaiton part seperate from this
+
 @onready var state_m : AnimationNodeStateMachinePlayback = get('parameters/StateMachine/playback')
 var velocity = Vector2.ZERO
 @export var idle_frequence = 3
@@ -9,9 +11,10 @@ func _process(delta):
 	if state_m.get_current_node() == "Idle":
 		if idle_time >= idle_frequence: play_idle(3) #TODO change 7 to automated
 		else: idle_time += delta
+		if velocity.length() > .02: set_moving()
 	if state_m.get_current_node() == "Moving":
 		manage_moving(delta)
-	
+		if velocity.length() < .02: set_idle()
 
 func manage_moving(delta):
 	var blend_length = 0.0
@@ -23,7 +26,8 @@ func set_idle():
 	state_m.travel('Idle')
 
 func set_moving():
-	state_m.start('Idle')
+	if state_m.get_current_node() != "Idle":
+		state_m.start('Idle')
 	state_m.travel('Moving')
 
 func play_idle(idle_amounts):

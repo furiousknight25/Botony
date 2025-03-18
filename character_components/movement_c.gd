@@ -1,6 +1,8 @@
-extends Node3D
+class_name MovementC extends Node3D
+#manages where the creature moves based on input and state
+#vehicles could always be in the active state and shoot could be honk
 
-@export var body_to_move : CharacterBody3D
+@onready var baseC = get_parent()
 @export var animation_c : AnimationC
 @export var base_acceleration := 50
 @export var max_speed := 3
@@ -8,10 +10,6 @@ extends Node3D
 @export var friction := 10
 @export var rot_speed := 10.0
 @export var aim_subtract := 0 #set higher if you want slower when faced other way
-var camera : Camera3D
-
-enum STATES {IDLE, ACTIVE, WALK, GAP, DEPLOY}
-var cur_state = STATES.IDLE
 
 var velocity := Vector3.ZERO
 var rot : float
@@ -22,79 +20,55 @@ var direction : Vector3
 
 signal movement_data
 
-func _ready():
-	camera = get_tree().get_nodes_in_group("camera")[0]
-
 func _process(delta): 
-	animation_c.velocity = Vector2(velocity.x, velocity.z).rotated($"../base".rotation.y)/max_speed
-	emit_signal('movement_data', velocity, rot)
-	body_to_move.move_and_slide()
+	animation_c.velocity = Vector2(velocity.x, velocity.z).rotated($"../baseV".rotation.y)/max_speed #TODO
+	emit_signal('movement_data', velocity) #to player
+	baseC.move_and_slide()
 	
 #region this dog is up bruh
-	match cur_state:
-		STATES.IDLE:
-			idle_process(delta)
-		STATES.ACTIVE:
+	match baseC.cur_state:
+		baseC.STATES.ACTIVE:
 			active_process(delta)
-		STATES.WALK:
-			walk_process(delta)
-		STATES.GAP:
+		baseC.STATES.IDLE:
+			idle_process(delta)
+		baseC.STATES.GAP:
 			gap_process(delta)
-		STATES.DEPLOY:
+		baseC.STATES.DEPLOY:
 			deploy_process(delta)
 #endregion
-	
-	if !body_to_move.is_on_floor():# jank fix
-		velocity.y += GRAVITY * delta
-	else:
-		velocity.y = 0
+
 	
 #region state processes
-func idle_process(delta):
-	velocity.x = move_toward(velocity.x, 0.0, friction * delta)
-	velocity.z = move_toward(velocity.z, 0.0, friction * delta)
-	
 func active_process(delta):
-	if intent:
-		body_to_move.rotation.y = lerp_angle(body_to_move.rotation.y, atan2(intent.x, intent.z), delta * rot_speed)
-		velocity += body_to_move.global_transform.basis.z * delta * base_acceleration
-		var drift_factor = body_to_move.velocity.dot(body_to_move.basis.x)
-		var drift_force = (body_to_move.basis.x * drift_factor)
+	if intent: #TODO manage max speed based on calculations of friction vs just limiting the length
+		baseC.rotation.y = lerp_angle(baseC.rotation.y, atan2(intent.x, intent.z), delta * rot_speed)
+		velocity += baseC.global_transform.basis.z * delta * base_acceleration
+		var drift_factor = baseC.velocity.dot(baseC.basis.x)
+		var drift_force = (baseC.basis.x * drift_factor)
 		velocity -= drift_force
 		#var current_max_speed = max(0, (max_speed - (abs(drift_factor * 10))))
 		velocity = velocity.limit_length(max_speed_sprint)
 		
-func walk_process(delta):
+	apply_gravity(delta)
+	
+func idle_process(delta):
 	if direction:
 		velocity += direction * base_acceleration * delta
 		#velocity = velocity.limit_length(max_speed - (aim_subtract * angle_difference))
 		velocity = velocity.limit_length(max_speed)
-
+	else:
+		velocity.x = move_toward(velocity.x, 0.0, friction * delta)
+		velocity.z = move_toward(velocity.z, 0.0, friction * delta)
+	apply_gravity(delta)
 func gap_process(delta):
 	pass
 
 func deploy_process(delta):
 	pass
 
+func apply_gravity(delta):
+	if !baseC.is_on_floor():# jank fix
+		velocity.y += GRAVITY * delta
+	else:
+		velocity.y = 0
 # charge function
-
-
-
-
-#endregion
-#region set state
-func set_state_idle():
-	cur_state = STATES.IDLE
-	animation_c.set_idle()
-func set_state_active():
-	cur_state = STATES.ACTIVE
-	animation_c.set_moving()
-func set_state_walk():
-	cur_state = STATES.WALK
-	animation_c.set_moving()
-func set_state_gap():
-	cur_state = STATES.GAP
-func set_state_deploy():
-	#prob do like play animation, and then have an animation trigger where it enables set state idle
-	cur_state = STATES.DEPLOY
-#endregion

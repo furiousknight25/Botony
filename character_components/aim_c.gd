@@ -1,28 +1,29 @@
-extends Node3D
+class_name AimC extends Node3D
+#manages where the player is looking depending on the state
+#also manages where the the gun should look
 
 @export var body_to_rotate : Node3D
-@export var body : CharacterBody3D
-@export var movementC : Node3D
-@onready var gunC = get_parent().gunC
+@onready var base_c = get_parent()
+@export var gunC : GunC
 @export var aim_speed := 8
 @onready var camera : Camera3D = get_tree().get_nodes_in_group("camera")[0]
 
-var intent : float
+var target_position = Vector3.ZERO
 
 func _process(delta):
-	if movementC.cur_state == movementC.STATES.ACTIVE:
-		body_to_rotate.rotation.y = lerp_angle(body_to_rotate.rotation.y, body.rotation.y, 5 * delta)
+	if base_c.cur_state == base_c.STATES.ACTIVE:
+		body_to_rotate.rotation.y = lerp_angle(body_to_rotate.rotation.y, base_c.rotation.y, 5 * delta)
 		
-		
-	if  movementC.cur_state == movementC.STATES.WALK or movementC.cur_state == movementC.STATES.IDLE:
-		var angle_difference = abs(angle_difference(fmod(atan2(body.velocity.x,body.velocity.z), 2*PI), fmod(body_to_rotate.global_rotation.y, 2*PI))/PI)
-		movementC.angle_difference = angle_difference
-		body.rotation.y = intent + PI
+	if  base_c.cur_state == base_c.STATES.IDLE:
+		var angle_difference = abs(angle_difference(fmod(atan2(base_c.velocity.x,base_c.velocity.z), 2*PI), fmod(body_to_rotate.global_rotation.y, 2*PI))/PI)
+		#base_c.rotation.y = atan2((gunC.global_position.x - gunC.g_cursor.global_position.x), (gunC.global_position.z - gunC.g_cursor.global_position.z))
+		var intent =  atan2((gunC.global_position.x - gunC.g_cursor.global_position.x), (gunC.global_position.z - gunC.g_cursor.global_position.z))
 		body_to_rotate.rotation.y = lerp_angle(body_to_rotate.rotation.y, intent + PI, aim_speed * delta)
+		gunC.cursorC_place(target_position)
 		
 		
-	position = body.position
-	body_to_rotate.position = position
+	global_position = base_c.global_position
+	body_to_rotate.global_position = global_position
 
 func shoot():
 	gunC.fire_weapon()

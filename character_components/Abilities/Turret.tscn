@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bufa46saea4ff"]
+
+[ext_resource type="Script" uid="uid://clywofdoq0sc1" path="res://character_components/Abilities/turret.gd" id="1_ogloh"]
+
+[node name="Turret" type="Node3D"]
+script = ExtResource("1_ogloh")
