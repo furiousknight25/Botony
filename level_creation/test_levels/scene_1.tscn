@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c456vx5ay5bgw"]
+[gd_scene load_steps=14 format=3 uid="uid://c456vx5ay5bgw"]
 
 [ext_resource type="PackedScene" uid="uid://buddhcu3qos45" path="res://character_components/camera_3d.tscn" id="1_ode4e"]
 [ext_resource type="Script" uid="uid://c54l1dffhbebk" path="res://character_components/connector_c.gd" id="2_vad7v"]
 [ext_resource type="PackedScene" uid="uid://c6ib6rsrs5tv1" path="res://character_components/player_c.tscn" id="3_vog8k"]
 [ext_resource type="PackedScene" uid="uid://han2gkcqd0dl" path="res://Nod.tscn" id="4_xqy1u"]
+[ext_resource type="Script" uid="uid://clbvbnlt8wyox" path="res://trash/broekntest.gd" id="5_vad7v"]
 [ext_resource type="Script" uid="uid://bi2hu6v4p56xh" path="res://level_creation/interactable_enviornment/Gap.gd" id="5_ylygo"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f33gb"]
@@ -81,6 +82,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54922, 0.198633, 0.0414803)
 [node name="Nod2" parent="connectorC" instance=ExtResource("4_xqy1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.73926, 0.870399, 0.977628)
 
+[node name="AIC" type="Node3D" parent="connectorC"]
+script = ExtResource("5_vad7v")
+
 [node name="Gap" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67563, -0.487999, 0.237388)
 script = ExtResource("5_ylygo")
@@ -97,5 +101,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.58574, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gap/Gap 2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, 1.14398)
 shape = SubResource("BoxShape3D_spaim")
-
-[connection signal="send_node" from="connectorC" to="connectorC/PlayerC" method="connect_to"]

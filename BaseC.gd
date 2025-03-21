@@ -10,7 +10,7 @@ var cur_state = STATES.IDLE
 
 var target_position : Vector3
 var input_dir : Vector2
-var acreq = []
+var acreq = [] #action request
 
 func _process(delta):
 	match cur_state:
@@ -27,13 +27,14 @@ func idle_process(delta):
 	aim_c.target_position = target_position
 	movement_c.direction = Vector3(input_dir.x, 0, input_dir.y)
 	
-	
 	if acreq.has("run"): set_state_active()
 	
 func active_process(delta):
 	movement_c.intent = movement_c.transform.basis * Vector3(input_dir.x, 0, input_dir.y).normalized()
 	if !acreq.has("run"): set_state_idle()
 	
+	
+
 func gap_process(delta):
 	pass
 

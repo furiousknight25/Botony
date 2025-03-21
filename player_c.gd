@@ -5,34 +5,17 @@ extends Node3D
 @onready var double_tap_timer = $DoubleTap
 var target_position = Vector3.ZERO
 var input = Vector2.ZERO
-var acreq = []
+var acreq = [] #action request
 
 var connected_node : BaseC
 signal _set_input(target_position, input, acreq)
 
-func connect_to(num):
-	discon_sig()
-	if num == 1:
-		self.connected_node = $"../Nod1"
-		_set_input.connect($"../Nod1"._set_input)
-	else:
-		self.connected_node = $"../Nod2"
-		_set_input.connect($"../Nod2"._set_input)
+func connect_to(connected_node):	
+	if self.connected_node: self.disconnect("_set_input", self.connected_node._set_input)
+	self.connected_node = connected_node
+	_set_input.connect(connected_node._set_input)
 
-func discon_sig():
-	for i in _set_input.get_connections():
-		_set_input.disconnect($"../Nod1"._set_input)
-		_set_input.disconnect($"../Nod2"._set_input)
-	
 func _process(delta):
-#region GARBAGE
-	if Input.is_action_just_pressed("action_1"):
-		connect_to(1)
-		
-	if Input.is_action_just_pressed("action_2"):
-		connect_to(2)
-	
-#endregion
 	var input_cam = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	camera.rotation.y -= input_cam.x * delta
 	var cam_vel = camera.global_transform.basis.z * input_cam.y * delta * 2

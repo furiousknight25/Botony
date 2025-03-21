@@ -4,4 +4,4 @@ extends BaseC
 #abilities are funneled thru
 
 func dash(): #player clicks the action button
-	pass 
+	pass
