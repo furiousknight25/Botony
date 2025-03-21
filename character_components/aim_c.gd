@@ -10,6 +10,9 @@ class_name AimC extends Node3D
 
 var target_position = Vector3.ZERO
 
+func _ready() -> void:
+	body_to_rotate.top_level == true
+
 func _process(delta):
 	if base_c.cur_state == base_c.STATES.ACTIVE:
 		body_to_rotate.rotation.y = lerp_angle(body_to_rotate.rotation.y, base_c.rotation.y, 5 * delta)

@@ -77,13 +77,17 @@ script = ExtResource("2_vad7v")
 [node name="PlayerC" parent="connectorC" instance=ExtResource("3_vog8k")]
 
 [node name="Nod1" parent="connectorC" instance=ExtResource("4_xqy1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54922, 0.198633, 0.0414803)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54922, 0.198633, 0.0414803)
 
 [node name="Nod2" parent="connectorC" instance=ExtResource("4_xqy1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.73926, 0.870399, 0.977628)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20149, 0.870399, 0.977628)
 
 [node name="AIC" type="Node3D" parent="connectorC"]
 script = ExtResource("5_vad7v")
+
+[node name="Timer" type="Timer" parent="connectorC/AIC"]
+wait_time = 0.4
+autostart = true
 
 [node name="Gap" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67563, -0.487999, 0.237388)
@@ -101,3 +105,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.58574, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gap/Gap 2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, 1.14398)
 shape = SubResource("BoxShape3D_spaim")
+
+[connection signal="timeout" from="connectorC/AIC/Timer" to="connectorC/AIC" method="_on_timer_timeout"]
