@@ -75,9 +75,10 @@ mesh = SubResource("BoxMesh_hbmhx")
 script = ExtResource("2_vad7v")
 
 [node name="PlayerC" parent="connectorC" instance=ExtResource("3_vog8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00364208, 0.0168757, -0.0118036)
 
 [node name="Nod1" parent="connectorC" instance=ExtResource("4_xqy1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54922, 0.198633, 0.0414803)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54922, 0.47142, -6.96229)
 
 [node name="Nod2" parent="connectorC" instance=ExtResource("4_xqy1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20149, 0.870399, 0.977628)

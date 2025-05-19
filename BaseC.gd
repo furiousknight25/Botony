@@ -13,6 +13,8 @@ var input_dir : Vector2
 var acreq = [] #action request
 
 func _process(delta):
+	if acreq.has("disconnect"):
+		disconnect_controller()
 	match cur_state:
 		STATES.IDLE: #also responsible for walking
 			idle_process(delta)
@@ -23,6 +25,9 @@ func _process(delta):
 		STATES.DEPLOY:
 			deploy_process(delta)
 
+func disconnect_controller():
+	acreq.clear()
+	
 func idle_process(delta):
 	aim_c.target_position = target_position
 	movement_c.direction = Vector3(input_dir.x, 0, input_dir.y)
@@ -32,8 +37,6 @@ func idle_process(delta):
 func active_process(delta):
 	movement_c.intent = movement_c.transform.basis * Vector3(input_dir.x, 0, input_dir.y).normalized()
 	if !acreq.has("run"): set_state_idle()
-	
-	
 
 func gap_process(delta):
 	pass

@@ -8,14 +8,18 @@ var input = Vector2.ZERO
 var acreq = [] #action request
 
 var connected_node : BaseC
-signal _set_input(target_position, input, acreq)
+signal _set_input(target_position : Vector3, input : Vector2, acreq : String)
 
 func connect_to(connected_node):	
-	if self.connected_node: self.disconnect("_set_input", self.connected_node._set_input)
+	if self.connected_node: 
+		_set_input.emit(target_position, input, ["disconnect"])
+		self.disconnect("_set_input", self.connected_node._set_input)
 	self.connected_node = connected_node
 	_set_input.connect(connected_node._set_input)
 
+
 func _process(delta):
+	
 	var input_cam = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	camera.rotation.y -= input_cam.x * delta
 	var cam_vel = camera.global_transform.basis.z * input_cam.y * delta * 2
@@ -26,7 +30,7 @@ func _process(delta):
 	cursorC_control(delta)
 	if connected_node: global_transform = connected_node.global_transform
 	_set_input.emit(target_position, input, acreq)
-	
+
 
 var old_input 
 var double_tap = 0
@@ -47,8 +51,6 @@ func input_movement(delta): #region Input movement perhaps add can press button 
 	#yesssss... small victory :)
 	if !input_dir:
 		acreq.erase("run")
-	
-	
 	
 	rotation.y = camera.rotation.y
 	#var intent = (base_c.movement_c.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()

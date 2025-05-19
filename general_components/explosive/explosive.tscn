@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfxheinj7fcr7"]
+
+[ext_resource type="Script" uid="uid://dq1ey0mwp6hdm" path="res://general_components/explosive/explosive.gd" id="1_7psrh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ix4dr"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_lxiqx"]
+
+[node name="Explosive" type="Node3D"]
+script = ExtResource("1_7psrh")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_ix4dr")
+
+[node name="TestExplosionParticles" type="CPUParticles3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+amount = 20
+lifetime = 5.0
+one_shot = true
+explosiveness = 0.9
+mesh = SubResource("SphereMesh_lxiqx")
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0

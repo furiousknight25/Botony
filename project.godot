@@ -19,11 +19,16 @@ config/icon="res://icon.png"
 
 Director="*res://etc_scripts/director.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
 "res://character_components/": "yellow",
 "res://character_tools/": "yellow",
+"res://general_components/": "yellow",
 "res://level_creation/": "green",
 "res://raw_assets/": "pink"
 }
@@ -105,6 +110,8 @@ action_3={
 3d_render/layer_1="characters"
 3d_render/layer_2="enviornment"
 3d_render/layer_11="cursor"
+3d_physics/layer_1="environment"
+3d_physics/layer_2="character"
 3d_physics/layer_11="cursor"
 
 [rendering]

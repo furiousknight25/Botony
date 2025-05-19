@@ -1,9 +1,15 @@
 extends Node
 # could do a dictionary of people
 
+
+func _ready() -> void:
+	$PlayerC.connect_to($Nod1)
+
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("action_1"):
-		$PlayerC.connect_to($Nod1)
-		
-	if Input.is_action_just_pressed("action_2"):
-		$AIC.connect_to($Nod2)
+	pass
+	
+	#if Input.is_action_just_pressed("action_1"):
+		#$PlayerC.connect_to($Nod1) #TODO make a better way to controll connecting these
+		#
+	#if Input.is_action_just_pressed("action_2"):
+		#$PlayerC.connect_to($Nod2)

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmepm6muf8rth"]
+
+[ext_resource type="Script" uid="uid://e7ooacjl3ckl" path="res://character_components/abilities/grenade/grenade.gd" id="1_23yev"]
+[ext_resource type="PackedScene" uid="uid://dfxheinj7fcr7" path="res://general_components/explosive/explosive.tscn" id="2_pd44v"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_v4ogv"]
+
+[node name="Grenade" type="Node3D"]
+script = ExtResource("1_23yev")
+
+[node name="GrenadeBody" type="RigidBody3D" parent="."]
+freeze = true
+continuous_cd = true
+
+[node name="Explosive" parent="GrenadeBody" instance=ExtResource("2_pd44v")]
+
+[node name="CollisionShape3D" parent="GrenadeBody/Explosive/Area3D" index="0"]
+shape = SubResource("SphereShape3D_v4ogv")
+debug_color = Color(0.975015, 0, 0.422536, 0.42)
+
+[node name="Fuse" type="Timer" parent="."]
+
+[editable path="GrenadeBody/Explosive"]

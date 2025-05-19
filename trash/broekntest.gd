@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 		input = Vector2(1,0)
 	else:
 		input = Vector2(-1,0)
-	_set_input.emit(Vector3.ZERO, input, [])
+	_set_input.emit(Vector3.ZERO, Vector2(-1,0), [])
 
 func _on_timer_timeout() -> void:
 	var coin_toss = randf_range(-1.0,1.0)
