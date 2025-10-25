@@ -1,14 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmepm6muf8rth"]
+[gd_scene load_steps=6 format=3 uid="uid://bmepm6muf8rth"]
 
 [ext_resource type="Script" uid="uid://e7ooacjl3ckl" path="res://character_components/abilities/grenade/grenade.gd" id="1_23yev"]
 [ext_resource type="PackedScene" uid="uid://dfxheinj7fcr7" path="res://general_components/explosive/explosive.tscn" id="2_pd44v"]
+[ext_resource type="PackedScene" uid="uid://cnlaqosjtcmok" path="res://character_components/cursors/test_basic/GrenadeCursor.tscn" id="3_v4ogv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_v4ogv"]
+radius = 2.46519
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l2miu"]
+radius = 0.266627
 
 [node name="Grenade" type="Node3D"]
 script = ExtResource("1_23yev")
 
 [node name="GrenadeBody" type="RigidBody3D" parent="."]
+top_level = true
+collision_layer = 0
 freeze = true
 continuous_cd = true
 
@@ -18,6 +25,16 @@ continuous_cd = true
 shape = SubResource("SphereShape3D_v4ogv")
 debug_color = Color(0.975015, 0, 0.422536, 0.42)
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrenadeBody"]
+shape = SubResource("SphereShape3D_l2miu")
+debug_color = Color(0, 0, 0, 1)
+
 [node name="Fuse" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="GrenadeCursor" parent="." instance=ExtResource("3_v4ogv")]
+
+[connection signal="timeout" from="Fuse" to="GrenadeBody/Explosive" method="explode"]
 
 [editable path="GrenadeBody/Explosive"]

@@ -15,6 +15,7 @@ func _process(delta):
 	if state_m.get_current_node() == "Moving":
 		manage_moving(delta)
 		if velocity.length() < .02: set_idle()
+	
 
 func manage_moving(delta):
 	var blend_length = 0.0
@@ -30,6 +31,9 @@ func set_moving():
 		state_m.start('Idle')
 	state_m.travel('Moving')
 
+func set_deploy():
+	state_m.travel('Deploy')
+	
 func play_idle(idle_amounts):
 	idle_time = 0
 	var choice = randi_range(1, idle_amounts)

@@ -20,23 +20,30 @@ func connect_to(connected_node):
 
 func _process(delta):
 	
-	var input_cam = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	camera.rotation.y -= input_cam.x * delta
-	var cam_vel = camera.global_transform.basis.z * input_cam.y * delta * 2
-	camera.position += cam_vel
-	
-	#endregion
 	input_movement(delta)
+	action_input()
 	cursorC_control(delta)
 	if connected_node: global_transform = connected_node.global_transform
-	_set_input.emit(target_position, input, acreq)
+	_set_input.emit(target_position, input, acreq) #emit all data to controller
 
-
+func action_input(): #top level, only allow one action
+	return
+	if Input.is_action_just_pressed("action_1"):
+		acreq.append("action_1")
+	if Input.is_action_just_pressed("action_2"):
+		acreq.append("action_2")
+	if Input.is_action_just_pressed("action_3"):
+		acreq.append("action_3")
+	if Input.is_action_just_pressed("left_mouse"):
+		acreq.append("shoot")
+		
 var old_input 
 var double_tap = 0
-func input_movement(delta): #region Input movement perhaps add can press button to prevent these states, like in deploy
+func input_movement(delta): #region Input movement perhaps add can press button to prevent these states, like in deploy	
+	rotation.y = camera.rotation.y
+	print(transform.basis.z)
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-
+	
 	if input_dir and double_tap == 0 and double_tap_timer.is_stopped():
 		double_tap_timer.start()
 		double_tap += 1
@@ -52,10 +59,12 @@ func input_movement(delta): #region Input movement perhaps add can press button 
 	if !input_dir:
 		acreq.erase("run")
 	
-	rotation.y = camera.rotation.y
+	
+	
 	#var intent = (base_c.movement_c.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	#base_c.movement_c.intent = intent
 	#base_c.movement_c.direction = Vector3(input_dir.x, 0, input_dir.y)
+	
 	input = input_dir
 	
 func cursorC_control(delta):

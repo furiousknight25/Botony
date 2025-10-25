@@ -7,10 +7,15 @@ var cur_state = STATES.IDLE
 @onready var movement_c : MovementC = $MovementC
 @onready var aim_c : AimC = $AimC
 @onready var animation_c : AnimationC= $AnimationC
+@onready var ability_c: AbilityC = $AbilityC
 
 var target_position : Vector3
 var input_dir : Vector2
 var acreq = [] #action request
+
+var m_target_position : Vector3
+var m_input_dir : Vector2
+var m_acreq = [] #action request
 
 func _process(delta):
 	if acreq.has("disconnect"):
@@ -24,6 +29,7 @@ func _process(delta):
 			gap_process(delta)
 		STATES.DEPLOY:
 			deploy_process(delta)
+	
 
 func disconnect_controller():
 	acreq.clear()
@@ -32,6 +38,12 @@ func idle_process(delta):
 	aim_c.target_position = target_position
 	movement_c.direction = Vector3(input_dir.x, 0, input_dir.y)
 	
+	if acreq.has('action_1') or acreq.has('action_2') or acreq.has('action_3'):
+		if acreq.has('action_1'): ability_c.activate_ability(1)
+		if acreq.has('action_2'): ability_c.activate_ability(1) #REALLY jank
+		if acreq.has('action_3'): ability_c.activate_ability(1)
+		acreq.clear()
+		set_state_deploy()
 	if acreq.has("run"): set_state_active()
 	
 func active_process(delta):
@@ -42,8 +54,13 @@ func gap_process(delta):
 	pass
 
 func deploy_process(delta):
-	pass
-
+	aim_c.target_position = m_target_position
+	ability_c.set_input(target_position, input_dir, acreq)
+	movement_c.direction = Vector3(m_input_dir.x, 0, m_input_dir.y)
+	
+	if m_acreq.has("idle"): 
+		acreq.erase('idle')
+		set_state_idle()
 func cursorC_control(delta):
 	pass
 
@@ -58,13 +75,8 @@ func set_state_gap():
 func set_state_deploy():
 	#prob do like play animation, and then have an animation trigger where it enables set state idle
 	cur_state = STATES.DEPLOY
+	animation_c.set_deploy() #set anim, each state in the state machine can have it's own blends
 
-func action1():
-	pass
-func action2():
-	pass
-func action3():
-	pass
 func shoot():
 	pass
 
@@ -73,6 +85,11 @@ func _set_input(pos : Vector3, dir : Vector2, acreq : Array):
 	self.target_position = pos #sets aim Direction, aimC pulls from this
 	self.input_dir = dir
 	self.acreq = acreq
-
+	
+func _set_modified_input(pos : Vector3, dir : Vector2, acreq : Array):
+	self.m_target_position = pos
+	self.m_input_dir = dir
+	self.m_acreq = acreq
+	
 func death():
 	queue_free()

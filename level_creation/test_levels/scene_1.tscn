@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://c456vx5ay5bgw"]
+[gd_scene load_steps=13 format=3 uid="uid://c456vx5ay5bgw"]
 
 [ext_resource type="PackedScene" uid="uid://buddhcu3qos45" path="res://character_components/camera_3d.tscn" id="1_ode4e"]
 [ext_resource type="Script" uid="uid://c54l1dffhbebk" path="res://character_components/connector_c.gd" id="2_vad7v"]
-[ext_resource type="PackedScene" uid="uid://c6ib6rsrs5tv1" path="res://character_components/player_c.tscn" id="3_vog8k"]
+[ext_resource type="PackedScene" uid="uid://c6ib6rsrs5tv1" path="res://character_components/player_c.tscn" id="3_ode4e"]
 [ext_resource type="PackedScene" uid="uid://han2gkcqd0dl" path="res://Nod.tscn" id="4_xqy1u"]
-[ext_resource type="Script" uid="uid://clbvbnlt8wyox" path="res://trash/broekntest.gd" id="5_vad7v"]
 [ext_resource type="Script" uid="uid://bi2hu6v4p56xh" path="res://level_creation/interactable_enviornment/Gap.gd" id="5_ylygo"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f33gb"]
@@ -37,7 +36,7 @@ size = Vector3(1.17529, 1, 6.44812)
 [node name="Scene1" type="Node3D"]
 
 [node name="Camera3D" parent="." instance=ExtResource("1_ode4e")]
-transform = Transform3D(1, 0, 0, 0, 0.902149, 0.431425, 0, -0.431425, 0.902149, 0, 1.38836, 3.99731)
+transform = Transform3D(0.998882, -0.0203982, 0.0426544, 8.48127e-09, 0.902149, 0.431425, -0.0472809, -0.430943, 0.90114, 0, 1.38836, 3.99731)
 
 [node name="Enviornment" type="Node3D" parent="."]
 
@@ -74,21 +73,13 @@ mesh = SubResource("BoxMesh_hbmhx")
 [node name="connectorC" type="Node3D" parent="."]
 script = ExtResource("2_vad7v")
 
-[node name="PlayerC" parent="connectorC" instance=ExtResource("3_vog8k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00364208, 0.0168757, -0.0118036)
+[node name="PlayerC" parent="connectorC" instance=ExtResource("3_ode4e")]
 
 [node name="Nod1" parent="connectorC" instance=ExtResource("4_xqy1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54922, 0.47142, -6.96229)
 
 [node name="Nod2" parent="connectorC" instance=ExtResource("4_xqy1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20149, 0.870399, 0.977628)
-
-[node name="AIC" type="Node3D" parent="connectorC"]
-script = ExtResource("5_vad7v")
-
-[node name="Timer" type="Timer" parent="connectorC/AIC"]
-wait_time = 0.4
-autostart = true
 
 [node name="Gap" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67563, -0.487999, 0.237388)
@@ -106,5 +97,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.58574, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gap/Gap 2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, 1.14398)
 shape = SubResource("BoxShape3D_spaim")
-
-[connection signal="timeout" from="connectorC/AIC/Timer" to="connectorC/AIC" method="_on_timer_timeout"]

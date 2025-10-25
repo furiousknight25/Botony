@@ -60,11 +60,13 @@ func idle_process(delta):
 		velocity.x = move_toward(velocity.x, 0.0, friction * delta)
 		velocity.z = move_toward(velocity.z, 0.0, friction * delta)
 	apply_gravity(delta)
-func gap_process(delta):
+
+func gap_process(delta): #animation and paths
 	pass
 
 func deploy_process(delta):
-	pass
+	if direction:
+		velocity = direction
 
 func apply_gravity(delta):
 	if !baseC.is_on_floor():# jank fix
