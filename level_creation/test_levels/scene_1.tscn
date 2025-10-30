@@ -36,7 +36,7 @@ size = Vector3(1.17529, 1, 6.44812)
 [node name="Scene1" type="Node3D"]
 
 [node name="Camera3D" parent="." instance=ExtResource("1_ode4e")]
-transform = Transform3D(0.998882, -0.0203982, 0.0426544, 8.48127e-09, 0.902149, 0.431425, -0.0472809, -0.430943, 0.90114, 0, 1.38836, 3.99731)
+transform = Transform3D(0.99695677, -0.024033768, 0.07415939, -0.009826798, 0.90495825, 0.42538708, -0.07733479, -0.42482132, 0.90196794, -7.1566367, 2.227271, 5.0124397)
 
 [node name="Enviornment" type="Node3D" parent="."]
 
@@ -82,10 +82,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54922, 0.47142, -6.96229)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20149, 0.870399, 0.977628)
 
 [node name="Gap" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67563, -0.487999, 0.237388)
-script = ExtResource("5_ylygo")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67563, -0.487999, -3.0873425)
 
-[node name="Gap 1" type="Area3D" parent="Gap"]
+[node name="Gap 1" type="Area3D" parent="Gap" node_paths=PackedStringArray("connections")]
+script = ExtResource("5_ylygo")
+connections = [null]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gap/Gap 1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, 1.14398)
@@ -93,6 +94,7 @@ shape = SubResource("BoxShape3D_spaim")
 
 [node name="Gap 2" type="Area3D" parent="Gap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.58574, 0, 0)
+script = ExtResource("5_ylygo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gap/Gap 2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, 1.14398)

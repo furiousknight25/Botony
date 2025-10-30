@@ -1,7 +1,7 @@
 extends Node3D
 #im chosing the keep the player scene and script not in a folder because we will acess it a lot 
 
-@onready var camera = get_tree().get_nodes_in_group("camera")[0]
+@onready var camera : Camera3D = get_tree().get_nodes_in_group("camera")[0]
 @onready var double_tap_timer = $DoubleTap
 var target_position = Vector3.ZERO
 var input = Vector2.ZERO
@@ -10,7 +10,7 @@ var acreq = [] #action request
 var connected_node : BaseC
 signal _set_input(target_position : Vector3, input : Vector2, acreq : String)
 
-func connect_to(connected_node):	
+func connect_to(connected_node):
 	if self.connected_node: 
 		_set_input.emit(target_position, input, ["disconnect"])
 		self.disconnect("_set_input", self.connected_node._set_input)
@@ -27,7 +27,7 @@ func _process(delta):
 	_set_input.emit(target_position, input, acreq) #emit all data to controller
 
 func action_input(): #top level, only allow one action
-	return
+
 	if Input.is_action_just_pressed("action_1"):
 		acreq.append("action_1")
 	if Input.is_action_just_pressed("action_2"):
@@ -41,8 +41,9 @@ var old_input
 var double_tap = 0
 func input_movement(delta): #region Input movement perhaps add can press button to prevent these states, like in deploy	
 	rotation.y = camera.rotation.y
-	print(transform.basis.z)
+	
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
+	input_dir = camera_relativity_translator(input_dir)
 	
 	if input_dir and double_tap == 0 and double_tap_timer.is_stopped():
 		double_tap_timer.start()
@@ -59,13 +60,26 @@ func input_movement(delta): #region Input movement perhaps add can press button 
 	if !input_dir:
 		acreq.erase("run")
 	
-	
-	
-	#var intent = (base_c.movement_c.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	#base_c.movement_c.intent = intent
-	#base_c.movement_c.direction = Vector3(input_dir.x, 0, input_dir.y)
-	
 	input = input_dir
+
+func camera_relativity_translator(inpu : Vector2) -> Vector2: #converts camera relativity to player controls
+	var cam_xform = camera.global_transform 
+	#    Get the camera's "forward" and "right" directions
+	#    We project on a plane to ignore the camera's up/down tilt.
+	var forward = -cam_xform.basis.z.slide(Vector3.UP).normalized()
+	var right = cam_xform.basis.x.slide(Vector3.UP).normalized()
+	
+	# 4. Combine input and camera directions to get the final world-space direction
+	#    (forward * -input_vec.y) is the key.
+	#    "forward" (y=-1) becomes (forward * 1.0)
+	#    "backward" (y=1) becomes (forward * -1.0)
+	var direction_3d = (right * inpu.x) + (forward * -inpu.y)
+	
+	# 5. Store the result as the 2D vector your BaseC script expects
+	#    This new 'input' has the correct world-space direction.
+	inpu = Vector2(direction_3d.x, direction_3d.z)
+	
+	return inpu
 	
 func cursorC_control(delta):
 	

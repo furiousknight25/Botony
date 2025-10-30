@@ -15,15 +15,13 @@ var velocity := Vector3.ZERO
 var rot : float
 var angle_difference = 0
 const GRAVITY = -100
-var intent : Vector3
-var direction : Vector3
+var intent : Vector3 #used for sprinting #TODO, combine these?
+var direction : Vector3 #used for default
 
 signal movement_data
 
 func _process(delta): 
-	animation_c.velocity = Vector2(velocity.x, velocity.z).rotated($"../baseV".rotation.y)/max_speed #TODO
-	emit_signal('movement_data', velocity) #to player
-	baseC.move_and_slide()
+	animation_c.velocity = Vector2(velocity.x, velocity.z).rotated($"../baseV".rotation.y)/max_speed #TODO transfer the signal down there into there
 	
 #region this dog is up bruh
 	match baseC.cur_state:
@@ -36,8 +34,8 @@ func _process(delta):
 		baseC.STATES.DEPLOY:
 			deploy_process(delta)
 #endregion
+	emit_signal('movement_data', velocity) #to player
 
-	
 #region state processes
 func active_process(delta):
 	if intent: #TODO manage max speed based on calculations of friction vs just limiting the length
@@ -52,7 +50,7 @@ func active_process(delta):
 	apply_gravity(delta)
 	
 func idle_process(delta):
-	if direction:
+	if direction: 
 		velocity += direction * base_acceleration * delta
 		#velocity = velocity.limit_length(max_speed - (aim_subtract * angle_difference))
 		velocity = velocity.limit_length(max_speed)
@@ -62,7 +60,8 @@ func idle_process(delta):
 	apply_gravity(delta)
 
 func gap_process(delta): #animation and paths
-	pass
+	if direction:
+		velocity = direction
 
 func deploy_process(delta):
 	if direction:

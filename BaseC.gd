@@ -80,13 +80,16 @@ func set_state_deploy():
 func shoot():
 	pass
 
-func _set_velocity(v): velocity = v #sets movement, MovementC pulls from this
+func _set_velocity(v): 
+	velocity = v #sets movement, MovementC pulls from this
+	move_and_slide()
+
 func _set_input(pos : Vector3, dir : Vector2, acreq : Array):
 	self.target_position = pos #sets aim Direction, aimC pulls from this
 	self.input_dir = dir
 	self.acreq = acreq
 	
-func _set_modified_input(pos : Vector3, dir : Vector2, acreq : Array):
+func _set_modified_input(pos : Vector3, dir : Vector2, acreq : Array): #AbilityC and Gap's send data to here, movementC can pull from this
 	self.m_target_position = pos
 	self.m_input_dir = dir
 	self.m_acreq = acreq

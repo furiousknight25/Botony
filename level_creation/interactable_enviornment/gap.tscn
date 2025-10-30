@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://baqk6sbrvumka"]
+
+[ext_resource type="Script" uid="uid://bi2hu6v4p56xh" path="res://level_creation/interactable_enviornment/Gap.gd" id="1_foxft"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_spaim"]
+size = Vector3(1.17529, 1, 6.44812)
+
+[node name="Gap" type="Area3D" node_paths=PackedStringArray("connections")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_foxft")
+connections = [null]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, 1.14398)
+shape = SubResource("BoxShape3D_spaim")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
