@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://baqk6sbrvumka"]
+[gd_scene load_steps=4 format=3 uid="uid://baqk6sbrvumka"]
 
 [ext_resource type="Script" uid="uid://bi2hu6v4p56xh" path="res://level_creation/interactable_enviornment/Gap.gd" id="1_foxft"]
+[ext_resource type="PackedScene" uid="uid://cru26q4bfy018" path="res://level_creation/interactable_enviornment/gap_helper.tscn" id="2_i6foa"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_spaim"]
-size = Vector3(1.17529, 1, 6.44812)
+[sub_resource type="BoxShape3D" id="BoxShape3D_0bxsn"]
+size = Vector3(1.1705322, 1, 9.870239)
 
 [node name="Gap" type="Area3D" node_paths=PackedStringArray("connections")]
 collision_layer = 0
@@ -12,8 +13,10 @@ script = ExtResource("1_foxft")
 connections = [null]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, 1.14398)
-shape = SubResource("BoxShape3D_spaim")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, -0.27295113)
+shape = SubResource("BoxShape3D_0bxsn")
+
+[node name="GapHelper" parent="." instance=ExtResource("2_i6foa")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

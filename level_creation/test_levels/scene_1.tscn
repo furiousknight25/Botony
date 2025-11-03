@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c456vx5ay5bgw"]
+[gd_scene load_steps=12 format=3 uid="uid://c456vx5ay5bgw"]
 
 [ext_resource type="PackedScene" uid="uid://buddhcu3qos45" path="res://character_components/camera_3d.tscn" id="1_ode4e"]
 [ext_resource type="Script" uid="uid://c54l1dffhbebk" path="res://character_components/connector_c.gd" id="2_vad7v"]
 [ext_resource type="PackedScene" uid="uid://c6ib6rsrs5tv1" path="res://character_components/player_c.tscn" id="3_ode4e"]
 [ext_resource type="PackedScene" uid="uid://han2gkcqd0dl" path="res://Nod.tscn" id="4_xqy1u"]
-[ext_resource type="Script" uid="uid://bi2hu6v4p56xh" path="res://level_creation/interactable_enviornment/Gap.gd" id="5_ylygo"]
+[ext_resource type="PackedScene" uid="uid://baqk6sbrvumka" path="res://level_creation/interactable_enviornment/gap.tscn" id="5_ode4e"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f33gb"]
 
@@ -29,9 +29,6 @@ glow_bloom = 1.0
 fog_density = 0.001
 
 [sub_resource type="BoxMesh" id="BoxMesh_hbmhx"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_spaim"]
-size = Vector3(1.17529, 1, 6.44812)
 
 [node name="Scene1" type="Node3D"]
 
@@ -65,7 +62,7 @@ use_collision = true
 mesh = SubResource("BoxMesh_hbmhx")
 
 [node name="CSGMesh3D3" type="CSGMesh3D" parent="Enviornment"]
-transform = Transform3D(24.5539, 0, 0, 0, 1, 0, 0, 0, 69.3233, -20.9642, -2.34982, 0)
+transform = Transform3D(24.5539, 0, 0, 0, 1, 0, 0, 0, 69.3233, -25.587078, -2.34982, 0)
 layers = 2
 use_collision = true
 mesh = SubResource("BoxMesh_hbmhx")
@@ -82,20 +79,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54922, 0.47142, -6.96229)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20149, 0.870399, 0.977628)
 
 [node name="Gap" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67563, -0.487999, -3.0873425)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67563, -0.487999, -12.153946)
 
-[node name="Gap 1" type="Area3D" parent="Gap" node_paths=PackedStringArray("connections")]
-script = ExtResource("5_ylygo")
-connections = [null]
+[node name="Gap2" parent="Gap" node_paths=PackedStringArray("connections") instance=ExtResource("5_ode4e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.029672146, -0.49743593, 5.900557)
+connections = [NodePath("../Gap3")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Gap/Gap 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, 1.14398)
-shape = SubResource("BoxShape3D_spaim")
+[node name="InputReq" parent="Gap/Gap2/GapHelper" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.296659, 0, 0)
 
-[node name="Gap 2" type="Area3D" parent="Gap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.58574, 0, 0)
-script = ExtResource("5_ylygo")
+[node name="Gap3" parent="Gap" node_paths=PackedStringArray("connections") instance=ExtResource("5_ode4e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9471564, -1.582395, 6.4298706)
+connections = [NodePath("../Gap2"), NodePath("../Gap4")]
+is_hook_point = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Gap/Gap 2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0876465, 0, 1.14398)
-shape = SubResource("BoxShape3D_spaim")
+[node name="CollisionShape3D" parent="Gap/Gap3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.059535995, -0.17878532, -0.27295113)
+
+[node name="Gap4" parent="Gap" node_paths=PackedStringArray("connections") instance=ExtResource("5_ode4e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.067629, -0.59060943, 6.4298706)
+connections = [NodePath("../Gap2")]
+
+[node name="CollisionShape3D" parent="Gap/Gap4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54528236, 0, -0.27295113)
+
+[node name="InputReq" parent="Gap/Gap4/GapHelper" index="0"]
+transform = Transform3D(-0.9986865, -0.051237937, 0, 0.051237937, -0.9986865, 0, 0, 0, 1, 2.9440804, 0, 0)
+
+[editable path="Gap/Gap2"]
+[editable path="Gap/Gap2/GapHelper"]
+[editable path="Gap/Gap3"]
+[editable path="Gap/Gap4"]
+[editable path="Gap/Gap4/GapHelper"]

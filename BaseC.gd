@@ -14,7 +14,7 @@ var input_dir : Vector2
 var acreq = [] #action request
 
 var m_target_position : Vector3
-var m_input_dir : Vector2
+var m_input_dir : Vector3
 var m_acreq = [] #action request
 
 func _process(delta):
@@ -33,7 +33,7 @@ func _process(delta):
 
 func disconnect_controller():
 	acreq.clear()
-	
+
 func idle_process(delta):
 	aim_c.target_position = target_position
 	movement_c.direction = Vector3(input_dir.x, 0, input_dir.y)
@@ -45,14 +45,30 @@ func idle_process(delta):
 		acreq.clear()
 		set_state_deploy()
 	if acreq.has("run"): set_state_active()
+	if m_acreq.has("enter_gap"): set_state_gap()
 	
 func active_process(delta):
 	movement_c.intent = movement_c.transform.basis * Vector3(input_dir.x, 0, input_dir.y).normalized()
 	if !acreq.has("run"): set_state_idle()
+	if m_acreq.has("enter_gap"): set_state_gap()
 
 func gap_process(delta):
-	pass
-
+	if m_acreq.has("launch"): 
+		movement_c.velocity = m_input_dir
+		m_acreq.erase("launch")
+	if m_acreq.has("hook"):
+		movement_c.is_hooked = true
+		m_acreq.erase("hook")
+	if m_acreq.has("unhook"):
+		movement_c.is_hooked = false
+		m_acreq.erase("unhook")
+	if m_acreq.has("leave_gap"):
+		set_state_idle()
+		m_acreq.clear()
+	
+	
+	aim_c.target_position = m_target_position
+	
 func deploy_process(delta):
 	aim_c.target_position = m_target_position
 	ability_c.set_input(target_position, input_dir, acreq)
@@ -72,6 +88,8 @@ func set_state_active():
 	animation_c.set_moving()
 func set_state_gap():
 	cur_state = STATES.GAP
+	m_acreq.erase("enter_gap")
+	
 func set_state_deploy():
 	#prob do like play animation, and then have an animation trigger where it enables set state idle
 	cur_state = STATES.DEPLOY
@@ -88,11 +106,14 @@ func _set_input(pos : Vector3, dir : Vector2, acreq : Array):
 	self.target_position = pos #sets aim Direction, aimC pulls from this
 	self.input_dir = dir
 	self.acreq = acreq
-	
-func _set_modified_input(pos : Vector3, dir : Vector2, acreq : Array): #AbilityC and Gap's send data to here, movementC can pull from this
+
+#this is for modified input, such as outside factors like cars, abilities and gaps
+#we may want to have a 3rd line for physics overide, but idk this seems fair
+func _set_modified_input(pos : Vector3, dir : Vector3, acreq : Array):
 	self.m_target_position = pos
 	self.m_input_dir = dir
 	self.m_acreq = acreq
 	
+
 func death():
 	queue_free()

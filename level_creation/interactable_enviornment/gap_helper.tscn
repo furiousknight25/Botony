@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cru26q4bfy018"]
+
+[ext_resource type="Script" uid="uid://bsxgduiglubif" path="res://level_creation/interactable_enviornment/gap_helper.gd" id="1_ik5kj"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_vr2h1"]
+
+[node name="GapHelper" type="Node3D"]
+script = ExtResource("1_ik5kj")
+
+[node name="InputReq" type="Marker3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="InputReq"]
+transform = Transform3D(-0.012810401, -0.9999179, 0, 0.9999179, -0.012810401, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PrismMesh_vr2h1")
