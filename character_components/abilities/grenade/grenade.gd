@@ -12,6 +12,7 @@ var velocity = Vector2.ZERO
 
 
 
+
 func throw(target_pos):
 	acreq.erase('shoot')
 	acreq.append('idle')

@@ -4,11 +4,19 @@
 [ext_resource type="PackedScene" uid="uid://dfxheinj7fcr7" path="res://general_components/explosive/explosive.tscn" id="2_pd44v"]
 [ext_resource type="PackedScene" uid="uid://cnlaqosjtcmok" path="res://character_components/cursors/test_basic/GrenadeCursor.tscn" id="3_v4ogv"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pd44v"]
+bounce = 0.1
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_v4ogv"]
 radius = 2.46519
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_l2miu"]
 radius = 0.266627
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l2miu"]
+radius = 0.100472
+
+[sub_resource type="SphereMesh" id="SphereMesh_s06te"]
 
 [node name="Grenade" type="Node3D"]
 script = ExtResource("1_23yev")

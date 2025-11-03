@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://c456vx5ay5bgw"]
+[gd_scene load_steps=15 format=3 uid="uid://c456vx5ay5bgw"]
 
 [ext_resource type="PackedScene" uid="uid://buddhcu3qos45" path="res://character_components/camera_3d.tscn" id="1_ode4e"]
 [ext_resource type="Script" uid="uid://c54l1dffhbebk" path="res://character_components/connector_c.gd" id="2_vad7v"]
+[ext_resource type="Texture2D" uid="uid://8r2ha3hi71rk" path="res://raw_assets/kenney_prototype-textures/PNG/Green/texture_08.png" id="2_vog8k"]
 [ext_resource type="PackedScene" uid="uid://c6ib6rsrs5tv1" path="res://character_components/player_c.tscn" id="3_ode4e"]
 [ext_resource type="PackedScene" uid="uid://han2gkcqd0dl" path="res://Nod.tscn" id="4_xqy1u"]
 [ext_resource type="PackedScene" uid="uid://baqk6sbrvumka" path="res://level_creation/interactable_enviornment/gap.tscn" id="5_ode4e"]
@@ -28,7 +29,13 @@ glow_strength = 1.24
 glow_bloom = 1.0
 fog_density = 0.001
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqy1u"]
+albedo_texture = ExtResource("2_vog8k")
+
 [sub_resource type="BoxMesh" id="BoxMesh_hbmhx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylygo"]
+albedo_texture = ExtResource("2_vog8k")
 
 [node name="Scene1" type="Node3D"]
 
@@ -56,14 +63,16 @@ text = "1 meter tall box!"
 environment = SubResource("Environment_ymmp1")
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="Enviornment"]
-transform = Transform3D(24.5539, 0, 0, 0, 1, 0, 0, 0, 69.3233, 6.61555, -2.34982, 0)
+transform = Transform3D(24.6408, 0, 0, 0, 9.43383, 0, 0, 0, 69.5687, 6.61555, -6.43524, 0)
 layers = 2
+material_override = SubResource("StandardMaterial3D_xqy1u")
 use_collision = true
 mesh = SubResource("BoxMesh_hbmhx")
 
 [node name="CSGMesh3D3" type="CSGMesh3D" parent="Enviornment"]
 transform = Transform3D(24.5539, 0, 0, 0, 1, 0, 0, 0, 69.3233, -25.587078, -2.34982, 0)
 layers = 2
+material_override = SubResource("StandardMaterial3D_ylygo")
 use_collision = true
 mesh = SubResource("BoxMesh_hbmhx")
 

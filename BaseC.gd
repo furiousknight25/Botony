@@ -2,12 +2,12 @@ class_name BaseC extends CharacterBody3D
 #manages communcation between the nodes, takes in the AI, Player, and outside input and manages the controllers
 #also manages the state machine responsble for actions
 
-enum STATES {IDLE, ACTIVE, GAP, DEPLOY}
+enum STATES {IDLE, ACTIVE, GAP, ABILITY}
 var cur_state = STATES.IDLE
 @onready var movement_c : MovementC = $MovementC
 @onready var aim_c : AimC = $AimC
-@onready var animation_c : AnimationC= $AnimationC
-@onready var ability_c: AbilityC = $AbilityC
+@onready var animation_c : AnimationC = $AnimationC
+@onready var ability_c : AbilityC = $AbilityC
 
 var target_position : Vector3
 var input_dir : Vector2
@@ -27,8 +27,8 @@ func _process(delta):
 			active_process(delta)
 		STATES.GAP:
 			gap_process(delta)
-		STATES.DEPLOY:
-			deploy_process(delta)
+		STATES.ABILITY:
+			ability_process(delta)
 	
 
 func disconnect_controller():
@@ -43,7 +43,7 @@ func idle_process(delta):
 		if acreq.has('action_2'): ability_c.activate_ability(1) #REALLY jank
 		if acreq.has('action_3'): ability_c.activate_ability(1)
 		acreq.clear()
-		set_state_deploy()
+		set_state_ability()
 	if acreq.has("run"): set_state_active()
 	if m_acreq.has("enter_gap"): set_state_gap()
 	
@@ -69,7 +69,7 @@ func gap_process(delta):
 	
 	aim_c.target_position = m_target_position
 	
-func deploy_process(delta):
+func ability_process(delta):
 	aim_c.target_position = m_target_position
 	ability_c.set_input(target_position, input_dir, acreq)
 	movement_c.direction = Vector3(m_input_dir.x, 0, m_input_dir.y)
@@ -90,10 +90,10 @@ func set_state_gap():
 	cur_state = STATES.GAP
 	m_acreq.erase("enter_gap")
 	
-func set_state_deploy():
+func set_state_ability():
 	#prob do like play animation, and then have an animation trigger where it enables set state idle
-	cur_state = STATES.DEPLOY
-	animation_c.set_deploy() #set anim, each state in the state machine can have it's own blends
+	cur_state = STATES.ABILITY
+	animation_c.set_ability() #set anim, each state in the state machine can have it's own blends
 
 func shoot():
 	pass
@@ -103,6 +103,10 @@ func _set_velocity(v):
 	move_and_slide()
 
 func _set_input(pos : Vector3, dir : Vector2, acreq : Array):
+	if cur_state == STATES.ABILITY:
+		pos = ability_c.set_target_position(pos)
+		input_dir = ability_c.set_input_dir(input_dir)
+		acreq = ability_c.set_acreq(acreq)
 	self.target_position = pos #sets aim Direction, aimC pulls from this
 	self.input_dir = dir
 	self.acreq = acreq

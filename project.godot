@@ -112,6 +112,7 @@ action_3={
 3d_render/layer_11="cursor"
 3d_physics/layer_1="environment"
 3d_physics/layer_2="character"
+3d_physics/layer_3="items"
 3d_physics/layer_11="cursor"
 
 [rendering]

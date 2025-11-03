@@ -30,6 +30,7 @@ signal movement_data
 func _process(delta): 
 	animation_c.velocity = Vector2(velocity.x, velocity.z).rotated($"../baseV".rotation.y)/max_speed #TODO transfer the signal down there into there
 	
+	
 #region this dog is up bruh
 	match baseC.cur_state:
 		baseC.STATES.ACTIVE:
@@ -38,8 +39,8 @@ func _process(delta):
 			idle_process(delta)
 		baseC.STATES.GAP:
 			gap_process(delta)
-		baseC.STATES.DEPLOY:
-			deploy_process(delta)
+		baseC.STATES.ABILITY:
+			ability_process(delta)
 #endregion
 	emit_signal('movement_data', velocity) #to player
 
@@ -60,10 +61,14 @@ func idle_process(delta):
 	if direction: 
 		velocity += direction * base_acceleration * delta
 		#velocity = velocity.limit_length(max_speed - (aim_subtract * angle_difference))
-		velocity = velocity.limit_length(max_speed)
+		var vel_xz = velocity.limit_length(max_speed)
+		velocity.x = vel_xz.x
+		velocity.z = vel_xz.z
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, friction * delta)
 		velocity.z = move_toward(velocity.z, 0.0, friction * delta)
+	
+	animation_c.velocity = Vector2(velocity.x, velocity.z).rotated($"../baseV".rotation.y)/max_speed #TODO
 	apply_gravity(delta)
 
 func gap_process(delta):
@@ -77,7 +82,7 @@ func gap_process(delta):
 			baseC.set_state_idle()
 			is_in_air = false
 	
-func deploy_process(delta):
+func ability_process(delta):
 	if direction:
 		velocity = direction
 
