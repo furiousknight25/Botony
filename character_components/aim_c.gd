@@ -28,5 +28,7 @@ func _process(delta):
 	global_position = base_c.global_position
 	body_to_rotate.global_position = global_position
 
-func shoot():
-	gunC.fire_weapon()
+func hold_trigger():
+	if !gunC: return
+	
+	gunC.hold_trigger()

@@ -35,8 +35,10 @@ func action_input(): #top level, only allow one action
 	if Input.is_action_just_pressed("action_3"):
 		acreq.append("action_3")
 	if Input.is_action_just_pressed("left_mouse"):
-		acreq.append("shoot")
-		
+		acreq.append("hold_shoot")
+	elif Input.is_action_just_released('left_mouse'):
+		acreq.append("release_shoot")
+	
 var old_input 
 var double_tap = 0
 func input_movement(delta): #region Input movement perhaps add can press button to prevent these states, like in deploy	

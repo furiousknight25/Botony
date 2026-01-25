@@ -4,6 +4,8 @@ class_name health_c
 signal death 
 
 @export var MAX_HEALTH : float
+@export_range(0, 1.0, .01) var ARMOR : float
+
 var health : float
 
 func _ready():

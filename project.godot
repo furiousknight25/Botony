@@ -28,10 +28,16 @@ enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
 folder_colors={
 "res://character_components/": "yellow",
 "res://character_tools/": "yellow",
+"res://characters/": "yellow",
 "res://general_components/": "yellow",
 "res://level_creation/": "green",
 "res://raw_assets/": "pink"
 }
+
+[global_group]
+
+nod=""
+hittable=""
 
 [input]
 

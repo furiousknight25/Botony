@@ -1,27 +1,17 @@
-class_name GunC extends Node3D
+@abstract class_name GunC extends Node3D
 
 @export var fire_speed := .5
 @export var g_cursor : cursor #this will be a scene with its own g_cursor code 
 
-@export var bullet_type = "res://Hazards/bullet.tscn"
+@export var bullet_type = "res://Hazards/bullet.tscn" #export this and set data on the database
 var fire_ready = true
 @onready var bullet_spawn = $bullet_spawn
 @onready var bullet_delay = $bullet_delay
 
-func _ready():
-	bullet_delay.wait_time = fire_speed
-	
-func fire_weapon():
-	if fire_ready == false: return
-	fire_ready = false
-	var Bullet = load(bullet_type)
-	var spawned_bullet = Bullet.instantiate()
-	bullet_spawn.add_child(spawned_bullet)
-	bullet_delay.start()
+@abstract func hold_trigger() #build awaits via script instead of physical timers
 
-func _on_bullet_delay_timeout():
-	fire_ready = true
-	
+@abstract func fire() #!!!!!
+
 func cursorC_place(pos : Vector3):
 	g_cursor.position = pos
 	g_cursor.rotation.y = atan2((global_position.x - g_cursor.position.x), (global_position.z - g_cursor.position.z)) + PI

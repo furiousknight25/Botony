@@ -11,7 +11,3 @@ script = ExtResource("1_a6rah")
 
 [node name="gun_mesh" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_4gkic")
-
-[node name="bullet_delay" type="Timer" parent="."]
-
-[connection signal="timeout" from="bullet_delay" to="." method="_on_bullet_delay_timeout"]

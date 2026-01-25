@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dreefccmns3um"]
+
+[ext_resource type="Script" uid="uid://ddfs22lynr7e3" path="res://character_tools/Bullets/basic_laser/basic_laser.gd" id="1_pyv7t"]
+
+[node name="BasicLaser" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_pyv7t")
+time_to_despawn = null
+velocity = null
+speed = null

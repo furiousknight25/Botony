@@ -1,11 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://c456vx5ay5bgw"]
+[gd_scene load_steps=16 format=3 uid="uid://c456vx5ay5bgw"]
 
 [ext_resource type="PackedScene" uid="uid://buddhcu3qos45" path="res://character_components/camera_3d.tscn" id="1_ode4e"]
 [ext_resource type="Script" uid="uid://c54l1dffhbebk" path="res://character_components/connector_c.gd" id="2_vad7v"]
 [ext_resource type="Texture2D" uid="uid://8r2ha3hi71rk" path="res://raw_assets/kenney_prototype-textures/PNG/Green/texture_08.png" id="2_vog8k"]
 [ext_resource type="PackedScene" uid="uid://c6ib6rsrs5tv1" path="res://character_components/player_c.tscn" id="3_ode4e"]
-[ext_resource type="PackedScene" uid="uid://han2gkcqd0dl" path="res://Nod.tscn" id="4_xqy1u"]
+[ext_resource type="PackedScene" uid="uid://han2gkcqd0dl" path="res://characters/Nod.tscn" id="4_xqy1u"]
 [ext_resource type="PackedScene" uid="uid://baqk6sbrvumka" path="res://level_creation/interactable_enviornment/gap.tscn" id="5_ode4e"]
+[ext_resource type="PackedScene" uid="uid://rndt18d50n7a" path="res://characters/dummy/dummy.tscn" id="7_vog8k"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f33gb"]
 
@@ -114,6 +115,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54528236, 0, -0.27295113)
 
 [node name="InputReq" parent="Gap/Gap4/GapHelper" index="0"]
 transform = Transform3D(-0.9986865, -0.051237937, 0, 0.051237937, -0.9986865, 0, 0, 0, 1, 2.9440804, 0, 0)
+
+[node name="Dummy" parent="." instance=ExtResource("7_vog8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.406353, -1.2852116, -4.1853027)
 
 [editable path="Gap/Gap2"]
 [editable path="Gap/Gap2/GapHelper"]

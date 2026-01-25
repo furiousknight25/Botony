@@ -38,12 +38,19 @@ func idle_process(delta):
 	aim_c.target_position = target_position
 	movement_c.direction = Vector3(input_dir.x, 0, input_dir.y)
 	
+	if acreq.has('release_shoot'):
+		acreq.erase('release_shoot')
+		acreq.erase('hold_shoot')
+	if acreq.has('hold_shoot'):
+		pass
+	
 	if acreq.has('action_1') or acreq.has('action_2') or acreq.has('action_3'):
 		if acreq.has('action_1'): ability_c.activate_ability(1)
-		if acreq.has('action_2'): ability_c.activate_ability(1) #REALLY jank
-		if acreq.has('action_3'): ability_c.activate_ability(1)
+		if acreq.has('action_2'): ability_c.activate_ability(2) #REALLY jank
+		if acreq.has('action_3'): ability_c.activate_ability(3)
 		acreq.clear()
 		set_state_ability()
+	
 	if acreq.has("run"): set_state_active()
 	if m_acreq.has("enter_gap"): set_state_gap()
 	
@@ -118,6 +125,8 @@ func _set_modified_input(pos : Vector3, dir : Vector3, acreq : Array):
 	self.m_input_dir = dir
 	self.m_acreq = acreq
 	
+func hit(damage:float,direction:Vector3): #factor in tac bar here for nody classes
+	pass
 
 func death():
 	queue_free()

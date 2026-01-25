@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://rndt18d50n7a"]
+
+[ext_resource type="Script" uid="uid://b50wlp3y3bpwb" path="res://characters/dummy/dummy.gd" id="1_lp1vw"]
+[ext_resource type="PackedScene" uid="uid://bo2tom0jppviq" path="res://character_components/health_c.tscn" id="2_hwdan"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hj4yf"]
+size = Vector3(1, 0.2241211, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2a4fj"]
+
+[node name="Dummy" type="StaticBody3D" groups=["hittable"]]
+script = ExtResource("1_lp1vw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.38793945, 0)
+shape = SubResource("BoxShape3D_hj4yf")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.043914795, 0)
+size = Vector3(1, 0.29473877, 1)
+
+[node name="Swinger" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76425505, 0)
+shape = SubResource("CapsuleShape3D_2a4fj")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Swinger"]
+transform = Transform3D(1, 0, 0, 0, 2.131164, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="HealthC" parent="." instance=ExtResource("2_hwdan")]
+MAX_HEALTH = 100.0
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(2.640068, 0, 0, 0, 2.640068, 0, 0, 0, 2.640068, 0, 2.2524526, 0)
+billboard = 1
+text = "Health"
